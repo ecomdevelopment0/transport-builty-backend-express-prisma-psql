@@ -18,7 +18,13 @@ export class AuthController {
 
   @httpPost("/verify-otp")
   async verifyOtp(request: Request, response: Response): Promise<void> {
-    let result = await (this.service as any).verifyOtp(request.body as any);
+    let result = await (this.service as any).verifyOtp(request.body as any, request.headers as any);
+    return successResponse(response, result);
+  }
+
+  @httpPost("/sso-login")
+  async ssoLogin(request: Request, response: Response): Promise<void> {
+    let result = await (this.service as any).ssoLogin(request.body as any);
     return successResponse(response, result);
   }
 
@@ -30,13 +36,13 @@ export class AuthController {
 
   @httpPost("/admin/verify-otp")
   async adminVerifyOtp(request: Request, response: Response): Promise<void> {
-    let result = await (this.service as any).adminVerifyOtp(request.body as any);
+    let result = await (this.service as any).adminVerifyOtp(request.body as any, request.headers as any);
     return successResponse(response, result);
   }
 
-  @httpPost("/access-token")
+  @httpPost("/token")
   async accessToken(request: Request, response: Response): Promise<void> {
-    let result = await (this.service as any).accessToken(request.body as any);
+    let result = await (this.service as any).accessToken(request.headers as any);
     return successResponse(response, result);
   }
 }

@@ -78,16 +78,13 @@ export class ValidationException extends CustomError {
   }
 }
 
-export const handleError = (response: any) => {
+export const handleStatusException = (response: any, isConsole: boolean = false) => {
   if (!response?.status) {
-    throw new InternalServerException(response?.message);
-  }
-  return response?.data;
-};
-
-export const handleErrorWithConsole = (response: any) => {
-  if (!response?.status) {
-    console.error(response?.message);
+    if (isConsole) {
+      console.error(response?.message);
+    } else {
+      throw new InternalServerException(response?.message);
+    }
   }
   return response?.data;
 };

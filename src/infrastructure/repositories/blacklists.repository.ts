@@ -7,6 +7,6 @@ import { BaseRepository } from "../../base";
 @provide(Instances.BlacklistsRepository as any)
 export class BlacklistsRepository extends BaseRepository {
   constructor() {
-    super(EntityConstants.BUYERS, prisma);
+    super(EntityConstants.BLACKLISTS, prisma);
   }
 }

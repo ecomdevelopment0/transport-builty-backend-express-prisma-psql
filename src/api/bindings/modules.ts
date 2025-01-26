@@ -1,4 +1,5 @@
 // controller modules
+export * from "../controllers/auth.controller";
 export * from "../controllers/admins.controller";
 export * from "../controllers/buyers.controller";
 export * from "../controllers/categories.controller";
@@ -16,6 +17,7 @@ export * from "../controllers/subscriptions.controller";
 export * from "../controllers/terms-and-conditions.controller";
 
 // service modules
+export * from "../../application/services/auth.service";
 export * from "../../application/services/admins.service";
 export * from "../../application/services/buyers.service";
 export * from "../../application/services/categories.service";

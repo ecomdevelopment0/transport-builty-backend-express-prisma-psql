@@ -1,5 +1,5 @@
 import axios from "axios";
-import { handleError } from "./handlers/error.handler";
+import { handleStatusException } from "./handlers/error.handler";
 import { Prisma, PrismaClient } from "@prisma/client";
 
 export type PrismaModels = {
@@ -206,14 +206,14 @@ export async function getAndCreateItems(
     let uniqueKeys = Array.from(new Set(currentBatch.map(item => item[key])));
     let filterCriteria = { [key]: uniqueKeys.filter(Boolean) };
     let existingDataResponse = await adapter.filter(filterCriteria);
-    let existingData = handleError(existingDataResponse);
+    let existingData = handleStatusException(existingDataResponse);
     let existingKeysSet = new Set(existingData.map((data: any) => data[key]));
     let newItems = currentBatch.filter(item => !existingKeysSet.has(item[key]));
     newItems = removeEmptyObjectsFromArray(newItems);
     let createdItems: any[] = [];
     if (newItems.length > 0) {
       let createdDataResponse = await adapter.createMany(newItems);
-      createdItems = handleError(createdDataResponse);
+      createdItems = handleStatusException(createdDataResponse);
     }
     result.push(...existingData, ...createdItems);
   }
@@ -241,7 +241,7 @@ export async function createAndUpdateItems(
     let uniqueKeys = Array.from(new Set(currentBatch.map(item => item[key])));
     let filterCriteria = { [key]: uniqueKeys.filter(Boolean) };
     let existingDataResponse = await adapter.filter(filterCriteria);
-    let existingData = handleError(existingDataResponse);
+    let existingData = handleStatusException(existingDataResponse);
     let existingKeysSet = new Set(existingData.map((data: any) => data[key]));
     let newItems = currentBatch.filter(item => !existingKeysSet.has(item[key]));
     let updateItems = currentBatch.filter(item => existingKeysSet.has(item[key]));
@@ -253,7 +253,7 @@ export async function createAndUpdateItems(
     newItems = removeEmptyObjectsFromArray(newItems);
     if (newItems.length > 0) {
       let createdDataResponse = await adapter.createMany(newItems);
-      handleError(createdDataResponse);
+      handleStatusException(createdDataResponse);
     }
   }
   return;
@@ -284,7 +284,7 @@ export async function createAndUpdateItemsWithMultipleFilterConditions(
       filterCriteria[key] = uniqueKeys.filter(Boolean);
     });
     let existingDataResponse = await adapter.filter(filterCriteria);
-    let existingData = handleError(existingDataResponse);
+    let existingData = handleStatusException(existingDataResponse);
     let existingKeysSet = new Set(existingData.map((data: any) => keys.map(key => data[key]).join("|")));
     let newItems = currentBatch.filter(item => {
       const compositeKey = keys.map(key => item[key]).join("|");
@@ -303,11 +303,11 @@ export async function createAndUpdateItemsWithMultipleFilterConditions(
       updateManyQuery.push({ where: whereClause, data: item });
     }
     let updateManyResponse = updateManyQuery?.length ? await adapter.updateMany(updateManyQuery) : { status: true };
-    handleError(updateManyResponse);
+    handleStatusException(updateManyResponse);
     newItems = removeEmptyObjectsFromArray(newItems);
     if (newItems.length > 0) {
       let createdDataResponse = await adapter.createMany(newItems);
-      handleError(createdDataResponse);
+      handleStatusException(createdDataResponse);
     }
   }
   return;
@@ -336,7 +336,7 @@ export async function createAndUpdateItemsWithMultipleConditions(
     let uniqueKeys = Array.from(new Set(currentBatch.map(item => item[key])));
     let filterCriteria = { [key]: uniqueKeys.filter(Boolean) };
     let existingDataResponse = await adapter.filter(filterCriteria);
-    let existingData = handleError(existingDataResponse);
+    let existingData = handleStatusException(existingDataResponse);
     let existingKeysSet = new Set(existingData.map((data: any) => data[key]));
     let newItems = currentBatch.filter(item => !existingKeysSet.has(item[key]));
     let updateItems = currentBatch.filter(item => existingKeysSet.has(item[key]));
@@ -353,7 +353,7 @@ export async function createAndUpdateItemsWithMultipleConditions(
     let createdItems: any[] = [];
     if (newItems.length > 0) {
       let createdDataResponse = await adapter.createMany(newItems);
-      createdItems = handleError(createdDataResponse);
+      createdItems = handleStatusException(createdDataResponse);
     }
     result.push(...existingData, ...createdItems);
   }
@@ -379,7 +379,7 @@ export async function executeFilterInBatches(
   let pageCount = 1;
   for (let i = 1; i <= pageCount; i++) {
     let data = await adapter.filter({ page: i, pageSize: batchSize, ...filterCriteria });
-    let handledData = handleError(data);
+    let handledData = handleStatusException(data);
     result.push(...handledData);
     pageCount = data?.pageCount || 0;
   }

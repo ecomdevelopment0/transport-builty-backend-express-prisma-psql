@@ -1,5 +1,5 @@
 let InstancesList: any[] = [
-  "Admin",
+  "Admins",
   "Auth",
   "Blacklists",
   "Buyers",
