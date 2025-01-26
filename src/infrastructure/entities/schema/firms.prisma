@@ -1,0 +1,25 @@
+model Firms {
+    id                 String               @id @default(uuid())
+    name               String
+    media              String[]             @default([])
+    gstn               String?
+    address            String?
+    city               String?
+    state              String?
+    country            String?
+    pincode            String?
+    phone              String?
+    email              String?
+    description        String?
+    categories         Categories[]
+    products           Products[]
+    termsAndConditions TermsAndConditions[]
+    paymentCollections PaymentCollections[]
+    paymentModes       PaymentModes[]
+    activeFlag         Boolean              @default(true)
+    deleteFlag         Boolean              @default(false)
+    modifiedAt         DateTime             @updatedAt
+    createdAt          DateTime             @default(now())
+    createdBy          String?
+    modifiedBy         String?
+}

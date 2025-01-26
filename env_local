@@ -1,0 +1,3 @@
+CONTEXT_PATH=/rental-service/api/v1
+PORT=9010
+DATABASE_URL=postgresql://postgres:123456@localhost:5432/rental?connection_limit=50&connect_timeout=3000

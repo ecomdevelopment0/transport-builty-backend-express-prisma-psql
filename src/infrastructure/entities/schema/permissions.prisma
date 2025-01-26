@@ -1,0 +1,12 @@
+model Permissions {
+    id          String   @id @default(uuid())
+    name        String   @unique
+    description String?
+    // role        Roles[]
+    activeFlag  Boolean  @default(true)
+    deleteFlag  Boolean  @default(false)
+    modifiedAt  DateTime @updatedAt
+    createdAt   DateTime @default(now())
+    createdBy   String?
+    modifiedBy  String?
+}

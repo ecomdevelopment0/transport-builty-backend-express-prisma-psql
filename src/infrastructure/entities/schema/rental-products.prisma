@@ -1,0 +1,18 @@
+model RentalProducts {
+    id         String   @id @default(uuid())
+    rentalId   String?
+    rental     Rentals? @relation(fields: [rentalId], references: [id])
+    product    Products @relation(fields: [productId], references: [id])
+    productId  String
+    startDate  DateTime @default(now())
+    endDate    DateTime @default(now())
+    status     Status   @default(Rented)
+    media      String[] @default([])
+    salesPrice Float    @default(0)
+    activeFlag Boolean  @default(true)
+    deleteFlag Boolean  @default(false)
+    createdBy  String?
+    createdAt  DateTime @default(now())
+    modifiedAt DateTime @updatedAt
+    modifiedBy String?
+}

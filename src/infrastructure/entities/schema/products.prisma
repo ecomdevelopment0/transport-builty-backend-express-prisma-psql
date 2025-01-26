@@ -1,0 +1,35 @@
+model Products {
+    id                 String           @id @default(uuid())
+    firmId             String
+    firm               Firms            @relation(fields: [firmId], references: [id])
+    name               String
+    code               String
+    categoryId         String?
+    category           Categories?      @relation(fields: [categoryId], references: [id])
+    price              Float            @default(0)
+    salesPrice         Float            @default(0)
+    fine               Float            @default(0)
+    deposit            Float            @default(0)
+    description        String?
+    rentalPeriod       RentalPeriod     @default(RentPerHour)
+    finePeriod         FinePeriod       @default(FinePerDay)
+    color              String?
+    type               String?
+    barcode            String?
+    brand              String?
+    size               String?
+    stock              Float            @default(0)
+    currentRentedStock Float            @default(0)
+    keywords           String[]         @default([])
+    media              String[]         @default([])
+    status             Status           @default(Available)
+    rentalProducts     RentalProducts[]
+    activeFlag         Boolean          @default(true)
+    deleteFlag         Boolean          @default(false)
+    modifiedAt         DateTime         @updatedAt
+    createdAt          DateTime         @default(now())
+    createdBy          String?
+    modifiedBy         String?
+
+    @@unique([code, firmId])
+}

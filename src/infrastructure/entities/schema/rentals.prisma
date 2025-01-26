@@ -1,0 +1,28 @@
+model Rentals {
+    id                 String               @id @default(uuid())
+    buyerId            String
+    buyer              Buyers               @relation(fields: [buyerId], references: [id])
+    paymentModeId      String
+    paymentMode        PaymentModes         @relation(fields: [paymentModeId], references: [id])
+    invoiceStatus      InvoiceStatus        @default(PartiallyPaid)
+    invoiceDate        DateTime             @default(now())
+    invoiceNumber      String?
+    rentalPeriod       RentalPeriod         @default(RentPerHour)
+    media              String[]             @default([])
+    salesPrice         Float                @default(0)
+    discountAmount     Float                @default(0)
+    pendingAmount      Float                @default(0)
+    advanceAmount      Float                @default(0)
+    depositAmount      Float                @default(0)
+    paidAmount         Float                @default(0)
+    totalAmount        Float                @default(0)
+    fineAmount         Float                @default(0)
+    rentalProducts     RentalProducts[]
+    paymentCollections PaymentCollections[]
+    activeFlag         Boolean              @default(true)
+    deleteFlag         Boolean              @default(false)
+    createdBy          String?
+    createdAt          DateTime             @default(now())
+    modifiedAt         DateTime             @updatedAt
+    modifiedBy         String?
+}

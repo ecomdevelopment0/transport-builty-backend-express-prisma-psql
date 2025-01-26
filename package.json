@@ -1,0 +1,42 @@
+{
+  "name": "rental-backend-express-prisma-psql",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/app.ts",
+  "scripts": {
+    "dev": "nodemon",
+    "prod": "nodemon",
+    "prisma:generate": "prisma generate --schema=./src/infrastructure/entities/schema",
+    "prisma:migrate:dev": "prisma migrate dev --schema=./src/infrastructure/entities/schema",
+    "prisma:migrate:prod": "prisma migrate deploy --schema=./src/infrastructure/entities/schema"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@prisma/client": "^6.0.0",
+    "@types/pg": "^8.11.10",
+    "axios": "^1.7.8",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.1",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1",
+    "inversify": "^6.1.5",
+    "inversify-binding-decorators": "^4.0.0",
+    "inversify-express-utils": "^6.4.8",
+    "joi": "^17.13.3",
+    "pg": "^8.13.0",
+    "reflect-metadata": "^0.2.2"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.16.0",
+    "@types/express": "^5.0.0",
+    "@types/morgan": "^1.9.9",
+    "@types/node": "^22.10.1",
+    "morgan": "^1.10.0",
+    "nodemon": "^3.1.7",
+    "prettier": "^3.2.5",
+    "prisma": "^6.0.0",
+    "ts-node": "^10.9.2",
+    "typescript": "*"
+  }
+}

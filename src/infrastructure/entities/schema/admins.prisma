@@ -1,0 +1,23 @@
+model Admins {
+    id                   String   @id @default(uuid())
+    fullName             String?
+    phone                String?
+    email                String?
+    image                String?
+    username             String?
+    alternatePhone       String?
+    address              String?
+    documents            String[] @default([])
+    city                 String?
+    state                String?
+    country              String?
+    pincode              String?
+    adhaarNumber         String?
+    drivingLicenseNumber String?
+    activeFlag           Boolean  @default(true)
+    deleteFlag           Boolean  @default(false)
+    modifiedAt           DateTime @updatedAt
+    createdAt            DateTime @default(now())
+    createdBy            String?
+    modifiedBy           String?
+}

@@ -1,0 +1,13 @@
+model Subscriptions {
+    id          String   @id @default(uuid())
+    name        String   @unique
+    price       Float    @default(0)
+    validity    String?
+    description String?
+    activeFlag  Boolean  @default(true)
+    deleteFlag  Boolean  @default(false)
+    createdBy   String?
+    createdAt   DateTime @default(now())
+    modifiedAt  DateTime @updatedAt
+    modifiedBy  String?
+}

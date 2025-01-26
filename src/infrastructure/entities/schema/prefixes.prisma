@@ -1,0 +1,14 @@
+model Prefixes {
+    id         String   @id @default(uuid())
+    objectType String   @unique
+    name       String
+    start      Int      @default(0)
+    end        Int      @default(0)
+    current    Int      @default(0)
+    activeFlag Boolean  @default(true)
+    deleteFlag Boolean  @default(false)
+    createdBy  String?
+    createdAt  DateTime @default(now())
+    modifiedAt DateTime @updatedAt
+    modifiedBy String?
+}
