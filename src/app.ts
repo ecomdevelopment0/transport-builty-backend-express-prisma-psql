@@ -7,13 +7,10 @@ import { globalErrorHandler } from "../src/base/handlers/error.handler";
 
 dotenv.config();
 
-let export_container: any;
 startApplication({
   DBInit,
   DBDisconnect,
   globalErrorHandler,
-}).then(({ container }) => {
-  export_container = container;
+}).then(({ app, container }) => {
   console.log("Application started successfully.");
 });
-export { export_container };

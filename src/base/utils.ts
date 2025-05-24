@@ -1,4 +1,41 @@
-import { ValidationException } from "./handlers/error.handler";
+import { Request, Response, NextFunction } from "express";
+import { ParamsDictionary } from "express-serve-static-core";
+import jwt from "jsonwebtoken";
+import { AuthorizationException, ValidationException } from "./handlers/error.handler";
+import { SECRET_KEY } from "../application/constants/common.constants";
+import { ErrorConstants } from "./constants/error.constant";
+
+export function isValidEmail(email: string) {
+  const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  return regex.test(email);
+}
+
+export function isValidMobile(mobile: string) {
+  const regex = /^[6-9]\d{9}$/;
+  return regex.test(mobile);
+}
+
+export const generateOTP = (length: number = 6): string => {
+  const min = Math.pow(10, length - 1);
+  const max = Math.pow(10, length) - 1;
+  return Math.floor(min + Math.random() * (max - min + 1)).toString();
+};
+
+export const verifyJWT = (req: Request<ParamsDictionary>, res: Response, next: NextFunction): void => {
+  const auth_header = req.headers.authorization;
+  if (!auth_header) {
+    throw new AuthorizationException("Authorization header missing");
+  }
+  const token_parts = auth_header.split(" ");
+  if (token_parts.length !== 2 || token_parts[0] !== "Bearer") {
+    throw new AuthorizationException();
+  }
+  const token: any = token_parts[1];
+  let result: any = jwt.verify(token, SECRET_KEY);
+  if (!result) throw new ValidationException(ErrorConstants.INVALID_OR_EXPIRE_TOKEN);
+  console.log({ result });
+  next();
+};
 
 export function removeDuplicates(arr: any[]) {
   return [...new Set(arr)];

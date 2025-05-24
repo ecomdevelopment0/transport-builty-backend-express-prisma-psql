@@ -96,6 +96,12 @@ export class ValidationException extends CustomError {
   }
 }
 
+export class AuthorizationException extends CustomError {
+  constructor(message: string = ErrorConstants.AUTHORIZATION_ERROR_MESSAGE) {
+    super(ErrorConstants.UNAUTHORIZED, message);
+  }
+}
+
 export class DuplicateValidationException extends CustomError {
   constructor(message: string = ErrorConstants.DUPLICATE_ERROR_MESSAGE) {
     super(ErrorConstants.DUPLICATE_ERROR_CODE, message);

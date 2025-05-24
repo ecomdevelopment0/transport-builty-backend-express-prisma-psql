@@ -6,6 +6,7 @@ import morgan from "morgan";
 import { Container } from "inversify";
 import { buildProviderModule } from "inversify-binding-decorators";
 import cors from "cors";
+import { verifyJWT } from "./utils";
 
 interface StartApplicationParams {
   DBInit: () => Promise<void>;
@@ -38,6 +39,15 @@ export async function startApplication({
       app.use(express.urlencoded({ extended: true }));
       app.use(express.json({ limit: "100mb" }));
       app.use(multer({ storage: multer.memoryStorage() }).any());
+      app.use((req, res, next) => {
+        const open_paths = ["/auth"];
+        console.log(req.path);
+        const is_open = open_paths.some(path => req.path.startsWith(contextPath + path));
+        if (is_open) {
+          return next();
+        }
+        return verifyJWT(req, res, next);
+      });
     });
     const app = server.build();
     app.get("/ping", (req, res) => {

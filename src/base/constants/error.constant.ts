@@ -29,10 +29,12 @@ export const ErrorConstants = {
   FOREIGN_KEY_CONSTRAINT_MESSAGE: "Foreign key constraint failed on field: ",
   RECORD_NOT_FOUND_MESSAGE: "Record not found ...!",
   VALIDATION_ERROR_MESSAGE: "Validation error",
+  AUTHORIZATION_ERROR_MESSAGE: "Invalid authorization ...!",
   INITIALIZATION_ERROR_MESSAGE: "Initialization error",
   UNEXPECTED_PRISMA_ERROR_MESSAGE: "Unexpected Prisma error ...!",
   ID_FOR_UPDATE_NOT_FOUND: "id for update is not found..!",
   DATA_MUST_BE_ARRAY: "Invalid input: 'data' must be an array.",
+  INVALID_OR_EXPIRE_TOKEN: "Invalid or expired token",
 
   // Prisma Error Codes
   ERROR_CODE_DUPLICATE_ENTRY: "P2002",

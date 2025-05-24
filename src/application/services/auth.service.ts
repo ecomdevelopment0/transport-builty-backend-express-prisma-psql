@@ -4,13 +4,13 @@ import jwt from "jsonwebtoken";
 import { Instances } from "../../api/bindings/container-types";
 import { NotFoundException, ValidationException } from "../../base";
 import { ErrorConstants } from "../constants/error.constants";
-import { generateOTP, isValidEmail, isValidMobile } from "../utils/common.utils";
 import { UsersService } from "./users.service";
 import { OwnersService } from "./owners.service";
 import { SettingsService } from "./settings.service";
 import NodeCache from "node-cache";
 import { BlacklistsRepository } from "../../infrastructure/repositories/blacklists.repository";
 import { SECRET_KEY, TRIGGERS_EMAIL, TRIGGERS_SMS } from "../constants/common.constants";
+import { generateOTP, isValidEmail, isValidMobile } from "../../base/utils";
 const node_cache_service = new NodeCache();
 
 @provide(Instances.AuthService as any)
@@ -136,17 +136,17 @@ export class AuthService {
   async adminVerifyOtp(data: any): Promise<any> {}
 
   async token(headers: any): Promise<any> {
-    const authHeader = headers["authorization"];
-    const token = authHeader && authHeader.split(" ")[1];
+    const auth_header = headers["authorization"];
+    const token = auth_header && auth_header.split(" ")[1];
     if (!token) throw new NotFoundException(ErrorConstants.TOKEN_NOT_FOUND);
-    let decoded: any = jwt.verify(token, SECRET_KEY);
-    if (!decoded) throw new ValidationException(ErrorConstants.INVALID_REFRESH_TOKEN);
+    let result: any = jwt.verify(token, SECRET_KEY);
+    if (!result) throw new ValidationException(ErrorConstants.INVALID_REFRESH_TOKEN);
     let [[existingRefreshToken]] = await this.blacklistsRepository.filterInternal({ refresh_token: token });
     if (existingRefreshToken) throw new ValidationException(ErrorConstants.INVALID_REFRESH_TOKEN);
     await this.blacklistsRepository.createInternal({ refresh_token: token });
     return {
-      access_token: this.createAccessToken({ data: decoded?.data }),
-      refresh_token: this.createRefreshToken({ data: decoded?.data }),
+      access_token: this.createAccessToken({ data: result?.data }),
+      refresh_token: this.createRefreshToken({ data: result?.data }),
     };
   }
 }

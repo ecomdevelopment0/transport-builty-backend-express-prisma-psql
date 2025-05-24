@@ -10,5 +10,6 @@ export const ErrorConstants = {
   INVALID_EMAIL: "Invalid email ...!",
   INVALID_MOBILE: "Invalid mobile number ...!",
   INVALID_REFRESH_TOKEN: "Invalid refresh token ...!",
+  INVALID_OR_EXPIRE_TOKEN: "Invalid or expired token",
   FIRM_CREATION_FAILED: "Firm creation failed ...!",
 };
