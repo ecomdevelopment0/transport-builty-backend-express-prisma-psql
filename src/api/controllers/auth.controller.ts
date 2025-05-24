@@ -18,7 +18,7 @@ export class AuthController {
 
   @httpPost("/verify_otp")
   async verifyOtp(request: Request, response: Response): Promise<void> {
-    let result = await (this.service as any).verifyOtp(request.body as any, request.headers as any);
+    let result = await (this.service as any).verifyOtp(request.body as any);
     return successResponse(response, result);
   }
 

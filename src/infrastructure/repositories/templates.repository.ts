@@ -1,0 +1,12 @@
+import { provide } from "inversify-binding-decorators";
+import { Instances } from "../../api/bindings/container-types";
+import { EntityConstants } from "../constants/entity.constants";
+import { prisma } from "../datasource/db.config";
+import { BaseRepository } from "../../base";
+
+@provide(Instances.TemplatesRepository as any)
+export class TemplatesRepository extends BaseRepository {
+  constructor() {
+    super(EntityConstants.TEMPLATES, prisma);
+  }
+}

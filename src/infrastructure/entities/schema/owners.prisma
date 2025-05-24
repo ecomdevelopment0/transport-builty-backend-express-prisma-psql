@@ -1,4 +1,4 @@
-model sellers {
+model owners {
     id                     String   @id @default(uuid())
     firm_id                String
     firm                   firms    @relation(fields: [firm_id], references: [id])

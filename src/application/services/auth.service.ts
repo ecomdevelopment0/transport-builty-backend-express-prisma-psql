@@ -1,32 +1,31 @@
 import { provide } from "inversify-binding-decorators";
 import { Instances } from "../../api/bindings/container-types";
 import { inject } from "inversify";
-import { BuyersRepository } from "../../infrastructure/repositories/buyers.repository";
-import { SellersRepository } from "../../infrastructure/repositories/sellers.repository";
 // import { AdminsRepository } from "../../infrastructure/repositories/admins.repository";
 import { BlacklistsRepository } from "../../infrastructure/repositories/blacklists.repository";
-import crypto from "crypto";
 import jwt from "jsonwebtoken";
 import { NotFoundException, ValidationException } from "../../base";
 import { ErrorConstants } from "../constants/error.constants";
-import { isValidEmail } from "../utils/common.utils";
+import { generateOTP, isValidEmail } from "../utils/common.utils";
+import { UsersService } from "./users.service";
+import { OwnersService } from "./owners.service";
+import { SettingsService } from "./settings.service";
+import NodeCache from "node-cache";
+import { TRIGGERS_EMAIL, TRIGGERS_SMS } from "../constants/common.constants";
+const node_cache_service = new NodeCache();
 
 @provide(Instances.AuthService as any)
 export class AuthService {
-  @inject(Instances.BuyersRepository as any)
-  private buyersRepository!: BuyersRepository;
-  @inject(Instances.SellersRepository as any)
-  private sellersRepository!: SellersRepository;
-  //   @inject(Instances.AdminsRepository as any)
-  //   private adminsRepository!: AdminsRepository;
+  @inject(Instances.UsersService as any)
+  private usersService!: UsersService;
+  @inject(Instances.SettingsService as any)
+  private settingsService!: SettingsService;
+  @inject(Instances.OwnersService as any)
+  private ownersService!: OwnersService;
+  //   @inject(Instances.AdminsService as any)
+  //   private adminsService!: AdminsService;
   @inject(Instances.BlacklistsRepository as any)
   private blacklistsRepository!: BlacklistsRepository;
-
-  private createOtpToken(data: any) {
-    return jwt.sign(data, process.env.SECRET_KEY as string, {
-      expiresIn: (process.env.OTP_EXPIRE as any) || "10m",
-    });
-  }
 
   private createAccessToken(data: any) {
     return jwt.sign(data, process.env.SECRET_KEY as string, {
@@ -41,45 +40,72 @@ export class AuthService {
   }
 
   async sendOtp(data: any): Promise<any> {
-    let { email } = data;
-    if (!email) throw new NotFoundException(ErrorConstants.EMAIL_NOT_FOUND);
-    if (!isValidEmail(email)) throw new ValidationException(ErrorConstants.INVALID_EMAIL);
+    let { email, mobile } = data;
+    if (!email && !mobile) throw new ValidationException(ErrorConstants.PLEASE_PROVIDE_VALID_DETAILS);
+
     let otp = "123456";
-    if ((process.env.OTP_MODE as string) !== "test") {
-      otp = crypto.randomInt(100000, 999999).toString();
+    let [[settings]] = await this.settingsService.filterInternal({});
+
+    if (email) {
+      if (!isValidEmail(email)) throw new ValidationException(ErrorConstants.INVALID_EMAIL);
+      if (settings?.is_email_otp_mode_live) {
+        otp = generateOTP();
+        await this.settingsService.sendEmail({ data: [otp], email, action: TRIGGERS_EMAIL.SIGN_UP_OTP_EMAIL });
+      }
+      await node_cache_service.set(email, otp, 600); // expire in 10 mins
     }
-    return this.createOtpToken({ email, otp });
+
+    if (mobile) {
+      if (!isValidEmail(mobile)) throw new ValidationException(ErrorConstants.INVALID_MOBILE);
+      if (settings?.is_sms_otp_mode_live) {
+        otp = generateOTP();
+        await this.settingsService.sendSms({ data: [otp], mobile, action: TRIGGERS_SMS.SIGN_UP_OTP_SMS });
+      }
+      await node_cache_service.set(mobile, otp, 600); // expire in 10 mins
+    }
+
+    return { message: "OTP sent successfully" };
   }
 
-  async verifyOtp(data: any, headers: any): Promise<any> {
-    const authHeader = headers["authorization"];
-    const token = authHeader && authHeader.split(" ")[1];
-    let { otp, type = "seller" } = data;
-    let decoded = jwt.verify(token, process.env.SECRET_KEY as string);
-    let { email, otp: decodedOtp }: any = decoded;
-    if (!decoded) throw new ValidationException(ErrorConstants.EXPIRED_OTP);
-    if (otp !== decodedOtp) throw new ValidationException(ErrorConstants.INVALID_OTP);
+  async verifyOtp(data: any): Promise<any> {
+    let { otp, type = "seller", email, mobile } = data;
+    if (!email && !mobile) throw new ValidationException(ErrorConstants.PLEASE_PROVIDE_VALID_DETAILS);
+
+    if (email) {
+      let otp_from_cache = node_cache_service.get(email);
+      console.log({ otp_from_cache });
+      if (!otp_from_cache) throw new ValidationException(ErrorConstants.EXPIRED_OTP);
+      if (otp !== otp_from_cache) throw new ValidationException(ErrorConstants.INVALID_OTP);
+    }
+
+    if (mobile) {
+      let otp_from_cache = node_cache_service.get(mobile);
+      console.log({ otp_from_cache });
+      if (!otp_from_cache) throw new ValidationException(ErrorConstants.EXPIRED_OTP);
+      if (otp !== otp_from_cache) throw new ValidationException(ErrorConstants.INVALID_OTP);
+    }
 
     let user: any;
-    let isNewUser: boolean = false;
+    let is_new_user: boolean = false;
     if (type === "seller") {
-      [[user]] = await this.sellersRepository.filterInternal({ email });
+      [[user]] = await this.ownersService.filterInternal({ email, mobile });
       if (!user) {
-        user = await this.sellersRepository.createInternal({ email });
-        isNewUser = true;
+        user = await this.ownersService.createInternal({ email, mobile });
+        is_new_user = true;
       }
     } else if (type === "buyer") {
-      [[user]] = await this.buyersRepository.filterInternal({ email });
+      [[user]] = await this.usersService.filterInternal({ email, mobile });
       if (!user) {
-        user = await this.buyersRepository.createInternal({ email });
-        isNewUser = true;
+        user = await this.usersService.createInternal({ email, mobile });
+        is_new_user = true;
       }
     } else {
       throw new ValidationException("Invalid type ... !");
     }
+
     return {
       ...user,
-      isNewUser,
+      is_new_user,
       accessToken: this.createAccessToken({ data: { ...user, type } }),
       refreshToken: this.createRefreshToken({ data: { ...user, type } }),
     };
@@ -89,25 +115,25 @@ export class AuthService {
     let { email, username, fullName, picture, type = "seller" } = data;
 
     let user: any;
-    let isNewUser: boolean = false;
+    let is_new_user: boolean = false;
     if (type === "seller") {
-      [[user]] = await this.sellersRepository.filterInternal({ email });
+      [[user]] = await this.ownersService.filterInternal({ email });
       if (!user) {
-        user = await this.sellersRepository.createInternal({ email, username, fullName, image: picture });
-        isNewUser = true;
+        user = await this.ownersService.createInternal({ email, username, fullName, image: picture });
+        is_new_user = true;
       }
     } else if (type === "buyer") {
-      [[user]] = await this.buyersRepository.filterInternal({ email });
+      [[user]] = await this.usersService.filterInternal({ email });
       if (!user) {
-        user = await this.buyersRepository.createInternal({ email, username, fullName, image: picture });
-        isNewUser = true;
+        user = await this.usersService.createInternal({ email, username, fullName, image: picture });
+        is_new_user = true;
       }
     } else {
       throw new ValidationException("Invalid type ... !");
     }
     return {
       ...user,
-      isNewUser,
+      is_new_user,
       accessToken: this.createAccessToken({ data: { ...user, type } }),
       refreshToken: this.createRefreshToken({ data: { ...user, type } }),
     };

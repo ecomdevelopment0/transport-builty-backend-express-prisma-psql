@@ -4,9 +4,9 @@ import { EntityConstants } from "../constants/entity.constants";
 import { prisma } from "../datasource/db.config";
 import { BaseRepository } from "../../base";
 
-@provide(Instances.SellersRepository as any)
-export class SellersRepository extends BaseRepository {
+@provide(Instances.UsersRepository as any)
+export class UsersRepository extends BaseRepository {
   constructor() {
-    super(EntityConstants.SELLERS, prisma);
+    super(EntityConstants.BUYERS, prisma);
   }
 }

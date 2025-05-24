@@ -1,0 +1,38 @@
+model provider_configurations {
+    id                    String   @id @default(uuid())
+    provider_type         String
+    name                  String
+    description           String?
+    contact_number        String?
+    email                 String?
+    identifier            String?
+    url                   String?
+    type                  String?
+    user_name             String?
+    password              String?
+    client_id             String?
+    client_password       String?
+    api_key               String?
+    api_secret            String?
+    status                String?
+    sender_details        Json?
+    outlet_reference      String?
+    redirect_url          String?
+    additional_properties Json[]   @default([])
+    sender_id             String?
+    account_usage_type_id String?
+    access_key_id         String?
+    secret_access_key     String?
+    region                String?
+    bucket                String?
+    cdn                   String?
+    project_id            String?
+    key_file_name         String?
+    cloud_name            String?
+    active_flag           Boolean  @default(true)
+    delete_flag           Boolean  @default(false)
+    created_by            String?
+    created_at            DateTime @default(now())
+    modified_at           DateTime @updatedAt
+    modified_by           String?
+}

@@ -1,0 +1,23 @@
+model templates {
+    id                     String   @id @default(uuid())
+    identifier             String
+    type                   String?
+    template_type          String?
+    provider_name          String?
+    name                   String?
+    subject                String?
+    description            String?
+    provider_template_code String?
+    template               String?
+    instruction            String?
+    parameters             Int?
+    is_html                Boolean  @default(false)
+    active_flag            Boolean  @default(true)
+    delete_flag            Boolean  @default(false)
+    modified_at            DateTime @updatedAt
+    created_at             DateTime @default(now())
+    created_by             String?
+    modified_by            String?
+
+    @@unique([provider_name, identifier])
+}

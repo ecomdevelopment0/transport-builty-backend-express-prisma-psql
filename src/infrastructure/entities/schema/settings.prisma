@@ -1,0 +1,11 @@
+model settings {
+    id                     String   @id @default(uuid())
+    is_sms_otp_mode_live   Boolean  @default(false)
+    is_email_otp_mode_live Boolean  @default(false)
+    active_flag            Boolean  @default(true)
+    delete_flag            Boolean  @default(false)
+    modified_at            DateTime @updatedAt
+    created_at             DateTime @default(now())
+    created_by             String?
+    modified_by            String?
+}
