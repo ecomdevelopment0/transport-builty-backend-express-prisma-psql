@@ -1,35 +1,33 @@
-model Products {
-    id                 String           @id @default(uuid())
-    firmId             String
-    firm               Firms            @relation(fields: [firmId], references: [id])
-    name               String
-    code               String
-    categoryId         String?
-    category           Categories?      @relation(fields: [categoryId], references: [id])
-    price              Float            @default(0)
-    salesPrice         Float            @default(0)
-    fine               Float            @default(0)
-    deposit            Float            @default(0)
-    description        String?
-    rentalPeriod       RentalPeriod     @default(RentPerHour)
-    finePeriod         FinePeriod       @default(FinePerDay)
-    color              String?
-    type               String?
-    barcode            String?
-    brand              String?
-    size               String?
-    stock              Float            @default(0)
-    currentRentedStock Float            @default(0)
-    keywords           String[]         @default([])
-    media              String[]         @default([])
-    status             Status           @default(Available)
-    rentalProducts     RentalProducts[]
-    activeFlag         Boolean          @default(true)
-    deleteFlag         Boolean          @default(false)
-    modifiedAt         DateTime         @updatedAt
-    createdAt          DateTime         @default(now())
-    createdBy          String?
-    modifiedBy         String?
+model products {
+    id                   String            @id @default(uuid())
+    firm_id              String
+    firm                 firms             @relation(fields: [firm_id], references: [id])
+    name                 String
+    code                 String
+    price                Float             @default(0)
+    sales_price          Float             @default(0)
+    fine                 Float             @default(0)
+    deposit              Float             @default(0)
+    description          String?
+    rental_period        Period            @default(per_hour)
+    fine_period          Period            @default(per_day)
+    color                String?
+    type                 String?
+    barcode              String?
+    brand                String?
+    size                 String?
+    stock                Float             @default(0)
+    current_rented_stock Float             @default(0)
+    keywords             String[]          @default([])
+    media                String[]          @default([])
+    status               Status            @default(available)
+    rental_products      rental_products[]
+    active_flag          Boolean           @default(true)
+    delete_flag          Boolean           @default(false)
+    modified_at          DateTime          @updatedAt
+    created_at           DateTime          @default(now())
+    created_by           String?
+    modified_by          String?
 
-    @@unique([code, firmId])
+    @@unique([code, firm_id])
 }

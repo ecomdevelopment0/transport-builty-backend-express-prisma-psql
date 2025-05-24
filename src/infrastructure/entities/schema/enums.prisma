@@ -1,28 +1,20 @@
-enum RentalPeriod {
-    RentPerHour
-    RentPerDay
-    RentPerWeek
-    RentPerMonth
-    RentPerYear
-}
-
-enum FinePeriod {
-    FinePerHour
-    FinePerDay
-    FinePerWeek
-    FinePerMonth
-    FinePerYear
+enum Period {
+    per_hour
+    per_day
+    per_week
+    per_month
+    per_year
 }
 
 enum Status {
-    Available
-    Unavailable
-    Rented
+    available
+    unavailable
+    rented
 }
 
 enum InvoiceStatus {
-    Paid
-    Unpaid
-    PartiallyPaid
-    Overdue
+    paid
+    unpaid
+    partially_paid
+    overdue
 }

@@ -1,15 +1,15 @@
-model PaymentModes {
-    id                 String               @id @default(uuid())
-    name               String               @unique
-    description        String?
-    firmId             String?
-    firm               Firms?               @relation(fields: [firmId], references: [id])
-    paymentCollections PaymentCollections[]
-    rentals            Rentals[]
-    activeFlag         Boolean              @default(true)
-    deleteFlag         Boolean              @default(false)
-    createdBy          String?
-    createdAt          DateTime             @default(now())
-    modifiedAt         DateTime             @updatedAt
-    modifiedBy         String?
+model payment_modes {
+    id                  String                @id @default(uuid())
+    name                String                @unique
+    description         String?
+    firm_id             String?
+    firm                firms?                @relation(fields: [firm_id], references: [id])
+    payment_collections payment_collections[]
+    rentals             rentals[]
+    active_flag         Boolean               @default(true)
+    delete_flag         Boolean               @default(false)
+    modified_at         DateTime              @updatedAt
+    created_at          DateTime              @default(now())
+    created_by          String?
+    modified_by         String?
 }

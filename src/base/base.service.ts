@@ -1,6 +1,6 @@
 import { injectable, unmanaged } from "inversify";
 import { Prisma } from "@prisma/client";
-import { FilterOptions } from "./utils";
+import { FilterOptions, InternalFilterOptions } from "./constants/i-base.orm";
 
 @injectable()
 export class BaseService {
@@ -14,38 +14,81 @@ export class BaseService {
   }
 
   async create(data: any): Promise<any> {
-    return await this.repository.create(data);
+    return await this.repository.createInternal(data);
   }
 
-  async getById(id: string, filterType: string): Promise<any> {
-    return await this.repository.getById(id);
+  async update(data: any): Promise<any> {
+    return await this.repository.updateInternal(data);
   }
 
-  async updateById(data: any): Promise<any> {
-    return await this.repository.updateById(data);
+  async list(data: any, options?: FilterOptions): Promise<any> {
+    return await this.repository.filterInternal(data, options);
   }
 
-  async filter(filterCriteria: any, options?: FilterOptions): Promise<any> {
-    return await this.repository.filter(filterCriteria, options);
+  async one(data: any, options?: FilterOptions): Promise<any> {
+    let [[result]] = await this.repository.filterInternal(data, options);
+    return result;
   }
 
-  async deleteById(id: string): Promise<any> {
-    return await this.repository.deleteById(id);
+  async delete(id: string): Promise<any> {
+    return await this.repository.deleteInternal(id);
   }
 
   async createMany(data: any): Promise<any> {
-    return await this.repository.createMany(data);
+    return await this.repository.createManyInternal(data);
   }
 
   async updateMany(data: any): Promise<any> {
-    return await this.repository.updateMany(data);
+    return await this.repository.updateManyInternal(data);
   }
 
-  async deleteMany(data: any): Promise<any> {
-    return await this.repository.deleteMany(data);
+  async createInternal(data: any): Promise<any> {
+    return await this.repository.createInternal(data);
   }
 
-  async count(filterCriteria: any, options?: FilterOptions): Promise<any> {
-    return await this.repository.count(filterCriteria, options);
+  async updateInternal(data: any): Promise<any> {
+    return await this.repository.updateInternal(data);
+  }
+
+  async filterInternal(data: any, options?: InternalFilterOptions): Promise<any> {
+    return await this.repository.filterInternal(data, options);
+  }
+
+  async deleteInternal(id: string): Promise<any> {
+    return await this.repository.deleteInternal(id);
+  }
+
+  async createManyInternal(data: any): Promise<any> {
+    return await this.repository.createManyInternal(data);
+  }
+
+  async updateManyInternal(data: any): Promise<any> {
+    return await this.repository.updateManyInternal(data);
+  }
+
+  async deleteManyInternal(data: any): Promise<any> {
+    return await this.repository.deleteManyInternal(data);
+  }
+
+  async countInternal(data: any, options?: FilterOptions): Promise<any> {
+    return await this.repository.countInternal(data, options);
+  }
+
+  async groupByInternal(data: any): Promise<any> {
+    return await this.repository.groupByInternal(data);
+  }
+
+  async executeRawUnsafeInternal(query: string): Promise<any> {
+    console.log(query);
+    return await this.repository.executeRawUnsafeInternal(query);
+  }
+
+  async queryRawUnsafeInternal(query: string): Promise<any> {
+    console.log(query);
+    return await this.repository.queryRawUnsafeInternal(query);
+  }
+
+  async updateQueryInternal(data: any, whereConditions: string[]): Promise<any> {
+    return await this.repository.updateQueryInternal(data, whereConditions);
   }
 }

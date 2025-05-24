@@ -1,8 +1,8 @@
 import { provide } from "inversify-binding-decorators";
 import { inject } from "inversify";
 import { Instances } from "../../api/bindings/container-types";
-import { TermsAndConditionsRepository } from "../../api/bindings/modules";
 import { BaseService } from "../../base";
+import { TermsAndConditionsRepository } from "../../infrastructure/repositories/terms-and-conditions.repository";
 
 @provide(Instances.TermsAndConditionsService as any)
 export class TermsAndConditionsService extends BaseService {

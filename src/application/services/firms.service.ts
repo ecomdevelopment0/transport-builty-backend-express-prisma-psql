@@ -1,8 +1,8 @@
 import { provide } from "inversify-binding-decorators";
 import { inject } from "inversify";
 import { Instances } from "../../api/bindings/container-types";
-import { FirmsRepository } from "../../api/bindings/modules";
 import { BaseService } from "../../base";
+import { FirmsRepository } from "../../infrastructure/repositories/firms.repository";
 
 @provide(Instances.FirmsService as any)
 export class FirmsService extends BaseService {

@@ -1,9 +1,8 @@
 import { controller } from "inversify-express-utils";
 import { inject } from "inversify";
 import { Instances } from "../bindings/container-types";
-import { SellersService } from "../bindings/modules";
 import { BaseController } from "../../base";
-import { SellersCreateModel, SellersUpdateModel } from "../models/sellers.model";
+import { SellersService } from "../../application/services/sellers.service";
 
 @controller("/sellers")
 export class SellersController extends BaseController {
@@ -11,6 +10,6 @@ export class SellersController extends BaseController {
     @inject(Instances.SellersService as any)
     service: SellersService,
   ) {
-    super(service, SellersCreateModel, SellersUpdateModel);
+    super(service);
   }
 }

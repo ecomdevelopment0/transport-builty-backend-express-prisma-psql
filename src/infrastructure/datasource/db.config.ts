@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient } from "../entities/client_output";
 import dotenv from "dotenv";
 
 dotenv.config();

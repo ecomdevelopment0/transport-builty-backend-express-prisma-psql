@@ -1,25 +1,26 @@
-model Firms {
-    id                 String               @id @default(uuid())
-    name               String
-    media              String[]             @default([])
-    gstn               String?
-    address            String?
-    city               String?
-    state              String?
-    country            String?
-    pincode            String?
-    phone              String?
-    email              String?
-    description        String?
-    categories         Categories[]
-    products           Products[]
-    termsAndConditions TermsAndConditions[]
-    paymentCollections PaymentCollections[]
-    paymentModes       PaymentModes[]
-    activeFlag         Boolean              @default(true)
-    deleteFlag         Boolean              @default(false)
-    modifiedAt         DateTime             @updatedAt
-    createdAt          DateTime             @default(now())
-    createdBy          String?
-    modifiedBy         String?
+model firms {
+    id                   String                 @id @default(uuid())
+    name                 String
+    media                String[]               @default([])
+    gst_number           String?
+    address              String?
+    city                 String?
+    state                String?
+    country              String?
+    pin_code             String?
+    phone                String?
+    email                String?
+    description          String?
+    active_flag          Boolean                @default(true)
+    delete_flag          Boolean                @default(false)
+    modified_at          DateTime               @updatedAt
+    created_at           DateTime               @default(now())
+    created_by           String?
+    modified_by          String?
+    products             products[]
+    terms_and_conditions terms_and_conditions[]
+    payment_collections  payment_collections[]
+    payment_modes        payment_modes[]
+    buyers               buyers[]
+    sellers              sellers[]
 }

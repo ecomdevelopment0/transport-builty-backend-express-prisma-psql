@@ -1,24 +1,26 @@
-model Buyers {
-    id                   String    @id @default(uuid())
-    fullName             String?
-    phone                String?
-    email                String?
-    image                String?
-    username             String?
-    alternatePhone       String?
-    address              String?
-    documents            String[]  @default([])
-    city                 String?
-    state                String?
-    country              String?
-    pincode              String?
-    adhaarNumber         String?
-    drivingLicenseNumber String?
-    activeFlag           Boolean   @default(true)
-    deleteFlag           Boolean   @default(false)
-    modifiedAt           DateTime  @updatedAt
-    createdAt            DateTime  @default(now())
-    createdBy            String?
-    modifiedBy           String?
-    rentals              Rentals[]
+model buyers {
+    id                     String    @id @default(uuid())
+    firm_id                String
+    firm                   firms     @relation(fields: [firm_id], references: [id])
+    full_name              String?
+    phone                  String?
+    email                  String?
+    image                  String?
+    username               String?
+    alternate_phone        String?
+    address                String?
+    documents              String[]  @default([])
+    city                   String?
+    state                  String?
+    country                String?
+    pin_code               String?
+    adhaar_number          String?
+    driving_license_number String?
+    active_flag            Boolean   @default(true)
+    delete_flag            Boolean   @default(false)
+    modified_at            DateTime  @updatedAt
+    created_at             DateTime  @default(now())
+    created_by             String?
+    modified_by            String?
+    rentals                rentals[]
 }

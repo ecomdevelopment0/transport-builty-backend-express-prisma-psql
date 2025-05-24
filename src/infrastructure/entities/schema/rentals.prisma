@@ -1,28 +1,28 @@
-model Rentals {
-    id                 String               @id @default(uuid())
-    buyerId            String
-    buyer              Buyers               @relation(fields: [buyerId], references: [id])
-    paymentModeId      String
-    paymentMode        PaymentModes         @relation(fields: [paymentModeId], references: [id])
-    invoiceStatus      InvoiceStatus        @default(PartiallyPaid)
-    invoiceDate        DateTime             @default(now())
-    invoiceNumber      String?
-    rentalPeriod       RentalPeriod         @default(RentPerHour)
-    media              String[]             @default([])
-    salesPrice         Float                @default(0)
-    discountAmount     Float                @default(0)
-    pendingAmount      Float                @default(0)
-    advanceAmount      Float                @default(0)
-    depositAmount      Float                @default(0)
-    paidAmount         Float                @default(0)
-    totalAmount        Float                @default(0)
-    fineAmount         Float                @default(0)
-    rentalProducts     RentalProducts[]
-    paymentCollections PaymentCollections[]
-    activeFlag         Boolean              @default(true)
-    deleteFlag         Boolean              @default(false)
-    createdBy          String?
-    createdAt          DateTime             @default(now())
-    modifiedAt         DateTime             @updatedAt
-    modifiedBy         String?
+model rentals {
+    id                  String                @id @default(uuid())
+    buyer_id            String
+    buyer               buyers                @relation(fields: [buyer_id], references: [id])
+    payment_mode_id     String
+    payment_mode        payment_modes         @relation(fields: [payment_mode_id], references: [id])
+    invoice_status      InvoiceStatus         @default(unpaid)
+    invoice_date        DateTime              @default(now())
+    invoice_number      String?
+    rental_period       Period                @default(per_hour)
+    media               String[]              @default([])
+    sales_price         Float                 @default(0)
+    discount_amount     Float                 @default(0)
+    pending_amount      Float                 @default(0)
+    advance_amount      Float                 @default(0)
+    deposit_amount      Float                 @default(0)
+    paid_amount         Float                 @default(0)
+    total_amount        Float                 @default(0)
+    fine_amount         Float                 @default(0)
+    rental_products     rental_products[]
+    payment_collections payment_collections[]
+    active_flag         Boolean               @default(true)
+    delete_flag         Boolean               @default(false)
+    created_by          String?
+    created_at          DateTime              @default(now())
+    modified_at         DateTime              @updatedAt
+    modified_by         String?
 }

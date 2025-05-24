@@ -6,6 +6,8 @@
 # Node artifact files
 node_modules/
 dist/
+logs/
+readme.md
 
 # Compiled Java class files
 *.class
@@ -50,4 +52,9 @@ Thumbs.db
 
 # added manually
 package-lock.json
-.env
+.env 
+src/infrastructure/entities/migrations 
+migrations
+client_output
+.sql
+.toml

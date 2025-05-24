@@ -12,9 +12,9 @@ export const successResponse = (response: Response, data: any, code?: number, me
 export const successPaginatedResponse = (
   response: Response,
   data: any,
-  totalCount: number,
+  total_count: number,
   page: number,
-  pageSize: number,
+  page_size: number,
   code?: number,
   message?: string,
 ) => {
@@ -22,9 +22,9 @@ export const successPaginatedResponse = (
     status: true,
     message: message || SuccessConstants.SUCCESSFUL_MESSAGE,
     data: data || [],
-    totalCount: Number(totalCount) || 0,
-    pageCount: Math.ceil(totalCount / pageSize) || 0,
-    pageSize: Number(pageSize) || 0,
+    total_count: Number(total_count) || 0,
+    page_count: Math.ceil(total_count / page_size) || 0,
+    page_size: Number(page_size) || 0,
     page: Number(page) || 0,
   });
 };

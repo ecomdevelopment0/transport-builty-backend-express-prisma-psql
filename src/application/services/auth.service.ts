@@ -63,15 +63,15 @@ export class AuthService {
     let user: any;
     let isNewUser: boolean = false;
     if (type === "seller") {
-      [[user]] = await this.sellersRepository.filter({ email });
+      [[user]] = await this.sellersRepository.filterInternal({ email });
       if (!user) {
-        user = await this.sellersRepository.create({ email });
+        user = await this.sellersRepository.createInternal({ email });
         isNewUser = true;
       }
     } else if (type === "buyer") {
-      [[user]] = await this.buyersRepository.filter({ email });
+      [[user]] = await this.buyersRepository.filterInternal({ email });
       if (!user) {
-        user = await this.buyersRepository.create({ email });
+        user = await this.buyersRepository.createInternal({ email });
         isNewUser = true;
       }
     } else {
@@ -91,15 +91,15 @@ export class AuthService {
     let user: any;
     let isNewUser: boolean = false;
     if (type === "seller") {
-      [[user]] = await this.sellersRepository.filter({ email });
+      [[user]] = await this.sellersRepository.filterInternal({ email });
       if (!user) {
-        user = await this.sellersRepository.create({ email, username, fullName, image: picture });
+        user = await this.sellersRepository.createInternal({ email, username, fullName, image: picture });
         isNewUser = true;
       }
     } else if (type === "buyer") {
-      [[user]] = await this.buyersRepository.filter({ email });
+      [[user]] = await this.buyersRepository.filterInternal({ email });
       if (!user) {
-        user = await this.buyersRepository.create({ email, username, fullName, image: picture });
+        user = await this.buyersRepository.createInternal({ email, username, fullName, image: picture });
         isNewUser = true;
       }
     } else {
@@ -122,9 +122,9 @@ export class AuthService {
     if (!token) throw new NotFoundException(ErrorConstants.TOKEN_NOT_FOUND);
     let decoded: any = jwt.verify(token, process.env.SECRET_KEY as string);
     if (!decoded) throw new ValidationException(ErrorConstants.INVALID_REFRESH_TOKEN);
-    let [[existingRefreshToken]] = await this.blacklistsRepository.filter({ refreshToken: token });
+    let [[existingRefreshToken]] = await this.blacklistsRepository.filterInternal({ refreshToken: token });
     if (existingRefreshToken) throw new ValidationException(ErrorConstants.INVALID_REFRESH_TOKEN);
-    await this.blacklistsRepository.create({ refreshToken: token });
+    await this.blacklistsRepository.createInternal({ refreshToken: token });
     console.log({ decoded });
     return {
       accessToken: this.createAccessToken({ data: decoded?.data }),

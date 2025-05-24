@@ -1,10 +1,10 @@
-model Blacklists {
-    id           String   @id @default(uuid())
-    refreshToken String   @unique
-    activeFlag   Boolean  @default(true)
-    deleteFlag   Boolean  @default(false)
-    createdBy    String?
-    createdAt    DateTime @default(now())
-    modifiedAt   DateTime @updatedAt
-    modifiedBy   String?
+model blacklists {
+    id            String   @id @default(uuid())
+    refresh_token String   @unique
+    active_flag   Boolean  @default(true)
+    delete_flag   Boolean  @default(false)
+    modified_at   DateTime @updatedAt
+    created_at    DateTime @default(now())
+    created_by    String?
+    modified_by   String?
 }

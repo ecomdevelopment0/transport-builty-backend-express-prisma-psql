@@ -1,8 +1,8 @@
 import { provide } from "inversify-binding-decorators";
 import { inject } from "inversify";
 import { Instances } from "../../api/bindings/container-types";
-import { PrefixesRepository } from "../../api/bindings/modules";
 import { BaseService } from "../../base";
+import { PrefixesRepository } from "../../infrastructure/repositories/prefixes.repository";
 
 @provide(Instances.PrefixesService as any)
 export class PrefixesService extends BaseService {
