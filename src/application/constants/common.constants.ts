@@ -1,4 +1,6 @@
-export const SECRET_KEY = "rental-backend-express-prisma-psql";
+export const SECRET_KEY = (process.env.SECRET_KEY as string) || "rental-backend-express-prisma-psql";
+export const DEFAULT_FIRM_NAME = "Firm ABC";
+
 export const NODE_CACHE_KEYS = {};
 
 export const NODE_CACHE_USED_KEYS = Object.values(NODE_CACHE_KEYS);

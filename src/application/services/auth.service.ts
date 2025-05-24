@@ -27,13 +27,13 @@ export class AuthService {
   private blacklistsRepository!: BlacklistsRepository;
 
   private createAccessToken(data: any) {
-    return jwt.sign(data, (process.env.SECRET_KEY as string) || SECRET_KEY, {
+    return jwt.sign(data, SECRET_KEY, {
       expiresIn: (process.env.ACCESS_TOKEN_EXPIRE as any) || "30d",
     });
   }
 
   private createRefreshToken(data: any) {
-    return jwt.sign(data, (process.env.SECRET_KEY as string) || SECRET_KEY, {
+    return jwt.sign(data, SECRET_KEY, {
       expiresIn: (process.env.REFRESH_TOKEN_EXPIRE as any) || "30d",
     });
   }
@@ -83,76 +83,70 @@ export class AuthService {
       if (otp !== otp_from_cache) throw new ValidationException(ErrorConstants.INVALID_OTP);
     }
 
-    let user: any;
-    let is_new_user: boolean = false;
-    if (type === "owner") {
-      [[user]] = await this.ownersService.filterInternal({ email, mobile });
-      if (!user) {
-        user = await this.ownersService.create({ email, mobile });
-        is_new_user = true;
-      }
-    } else if (type === "user") {
-      [[user]] = await this.usersService.filterInternal({ email, mobile });
-      if (!user) {
-        user = await this.usersService.create({ email, mobile });
-        is_new_user = true;
-      }
-    } else {
-      throw new ValidationException("Invalid type ... !");
-    }
-
-    return {
-      ...user,
-      is_new_user,
-      accessToken: this.createAccessToken({ data: { ...user, type } }),
-      refreshToken: this.createRefreshToken({ data: { ...user, type } }),
-    };
+    return await this.init(type, { email, mobile });
   }
 
-  async ssoLogin(data: any): Promise<any> {
+  async verifiedEmailLogin(data: any): Promise<any> {
     let { email, username, fullName, picture, type = "owner" } = data;
+    if (email) {
+      if (!isValidEmail(email)) throw new ValidationException(ErrorConstants.INVALID_EMAIL);
+    } else {
+      throw new ValidationException(ErrorConstants.INVALID_EMAIL);
+    }
+    return await this.init(type, { email, username, full_name: fullName, image: picture });
+  }
 
+  async verifiedMobileLogin(data: any): Promise<any> {
+    let { mobile, type = "owner" } = data;
+    if (mobile) {
+      if (!isValidMobile(mobile)) throw new ValidationException(ErrorConstants.INVALID_MOBILE);
+    } else {
+      throw new ValidationException(ErrorConstants.INVALID_MOBILE);
+    }
+    return await this.init(type, { mobile });
+  }
+
+  private async init(type: any, data: any) {
     let user: any;
     let is_new_user: boolean = false;
     if (type === "owner") {
-      [[user]] = await this.ownersService.filterInternal({ email });
+      [[user]] = await this.ownersService.filterInternal(data);
       if (!user) {
-        user = await this.ownersService.createInternal({ email, username, fullName, image: picture });
+        user = await this.ownersService.create(data);
         is_new_user = true;
       }
     } else if (type === "user") {
-      [[user]] = await this.usersService.filterInternal({ email });
+      [[user]] = await this.usersService.filterInternal(data);
       if (!user) {
-        user = await this.usersService.createInternal({ email, username, fullName, image: picture });
+        user = await this.usersService.create(data);
         is_new_user = true;
       }
     } else {
       throw new ValidationException("Invalid type ... !");
     }
+
     return {
       ...user,
       is_new_user,
-      accessToken: this.createAccessToken({ data: { ...user, type } }),
-      refreshToken: this.createRefreshToken({ data: { ...user, type } }),
+      access_token: this.createAccessToken({ data: { ...user, type } }),
+      refresh_token: this.createRefreshToken({ data: { ...user, type } }),
     };
   }
 
-  async adminSendOtp(data: any): Promise<any> {}
   async adminVerifyOtp(data: any): Promise<any> {}
 
-  async accessToken(headers: any): Promise<any> {
+  async token(headers: any): Promise<any> {
     const authHeader = headers["authorization"];
     const token = authHeader && authHeader.split(" ")[1];
     if (!token) throw new NotFoundException(ErrorConstants.TOKEN_NOT_FOUND);
-    let decoded: any = jwt.verify(token, process.env.SECRET_KEY as string);
+    let decoded: any = jwt.verify(token, SECRET_KEY);
     if (!decoded) throw new ValidationException(ErrorConstants.INVALID_REFRESH_TOKEN);
-    let [[existingRefreshToken]] = await this.blacklistsRepository.filterInternal({ refreshToken: token });
+    let [[existingRefreshToken]] = await this.blacklistsRepository.filterInternal({ refresh_token: token });
     if (existingRefreshToken) throw new ValidationException(ErrorConstants.INVALID_REFRESH_TOKEN);
-    await this.blacklistsRepository.createInternal({ refreshToken: token });
-    console.log({ decoded });
+    await this.blacklistsRepository.createInternal({ refresh_token: token });
     return {
-      accessToken: this.createAccessToken({ data: decoded?.data }),
-      refreshToken: this.createRefreshToken({ data: decoded?.data }),
+      access_token: this.createAccessToken({ data: decoded?.data }),
+      refresh_token: this.createRefreshToken({ data: decoded?.data }),
     };
   }
 }

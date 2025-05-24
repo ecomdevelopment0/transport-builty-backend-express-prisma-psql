@@ -22,15 +22,15 @@ export class AuthController {
     return successResponse(response, result);
   }
 
-  @httpPost("/sso_login")
-  async ssoLogin(request: Request, response: Response): Promise<void> {
-    let result = await (this.service as any).ssoLogin(request.body as any);
+  @httpPost("/verified_email_login")
+  async verifiedEmailLogin(request: Request, response: Response): Promise<void> {
+    let result = await (this.service as any).verifiedEmailLogin(request.body as any);
     return successResponse(response, result);
   }
 
-  @httpPost("/admin/send_otp")
-  async adminSendOtp(request: Request, response: Response): Promise<void> {
-    let result = await (this.service as any).adminSendOtp(request.body as any);
+  @httpPost("/verified_mobile_login")
+  async verifiedMobileLogin(request: Request, response: Response): Promise<void> {
+    let result = await (this.service as any).verifiedMobileLogin(request.body as any);
     return successResponse(response, result);
   }
 
@@ -41,8 +41,8 @@ export class AuthController {
   }
 
   @httpPost("/token")
-  async accessToken(request: Request, response: Response): Promise<void> {
-    let result = await (this.service as any).accessToken(request.headers as any);
+  async token(request: Request, response: Response): Promise<void> {
+    let result = await (this.service as any).token(request.headers as any);
     return successResponse(response, result);
   }
 }

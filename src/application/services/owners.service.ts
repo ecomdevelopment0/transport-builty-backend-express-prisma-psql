@@ -5,6 +5,7 @@ import { BaseService, InternalServerException, ValidationException } from "../..
 import { OwnersRepository } from "../../infrastructure/repositories/owners.repository";
 import { FirmsService } from "./firms.service";
 import { ErrorConstants } from "../constants/error.constants";
+import { DEFAULT_FIRM_NAME } from "../constants/common.constants";
 
 @provide(Instances.OwnersService as any)
 export class OwnersService extends BaseService {
@@ -21,14 +22,12 @@ export class OwnersService extends BaseService {
     let { email, mobile } = data;
     if (!email && !mobile) throw new ValidationException(ErrorConstants.PLEASE_PROVIDE_VALID_DETAILS);
 
-    let [[firm]] = await this.firmsService.filterInternal({ name: "Firm ABC", email, mobile });
+    let [[firm]] = await this.firmsService.filterInternal({ name: DEFAULT_FIRM_NAME, email, mobile });
     if (!firm) {
-      firm = await this.firmsService.create({ name: "Firm ABC", email, mobile });
+      firm = await this.firmsService.create({ name: DEFAULT_FIRM_NAME, email, mobile });
     }
-    console.log({ firm });
-    if (!firm) throw new InternalServerException("firm creation failed ...!");
+    if (!firm) throw new InternalServerException(ErrorConstants.FIRM_CREATION_FAILED);
     data.firm_id = firm?.id;
-    console.log({ data });
     return await this.repository.createInternal(data);
   }
 }
