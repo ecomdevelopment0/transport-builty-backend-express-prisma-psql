@@ -1,15 +1,11 @@
 model rentals {
     id                  String                @id @default(uuid())
     buyer_id            String
-    buyer               buyers                @relation(fields: [buyer_id], references: [id])
     payment_mode_id     String
-    payment_mode        payment_modes         @relation(fields: [payment_mode_id], references: [id])
-    invoice_status      InvoiceStatus         @default(unpaid)
+    invoice_id          String
     invoice_date        DateTime              @default(now())
-    invoice_number      String?
+    invoice_status      InvoiceStatus         @default(unpaid)
     rental_period       Period                @default(per_hour)
-    media               String[]              @default([])
-    sales_price         Float                 @default(0)
     discount_amount     Float                 @default(0)
     pending_amount      Float                 @default(0)
     advance_amount      Float                 @default(0)
@@ -17,12 +13,14 @@ model rentals {
     paid_amount         Float                 @default(0)
     total_amount        Float                 @default(0)
     fine_amount         Float                 @default(0)
-    rental_products     rental_products[]
-    payment_collections payment_collections[]
+    rental_products     Json[]                @default([])
     active_flag         Boolean               @default(true)
     delete_flag         Boolean               @default(false)
     created_by          String?
     created_at          DateTime              @default(now())
     modified_at         DateTime              @updatedAt
     modified_by         String?
+    payment_collections payment_collections[]
+    buyer               buyers?               @relation(fields: [buyer_id], references: [id])
+    payment_mode        payment_modes?        @relation(fields: [payment_mode_id], references: [id])
 }

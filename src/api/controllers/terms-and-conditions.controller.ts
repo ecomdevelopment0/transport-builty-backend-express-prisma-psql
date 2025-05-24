@@ -4,7 +4,7 @@ import { Instances } from "../bindings/container-types";
 import { BaseController } from "../../base";
 import { TermsAndConditionsService } from "../../application/services/terms-and-conditions.service";
 
-@controller("/terms-and-conditions")
+@controller("/terms_and_conditions")
 export class TermsAndConditionsController extends BaseController {
   constructor(
     @inject(Instances.TermsAndConditionsService as any)

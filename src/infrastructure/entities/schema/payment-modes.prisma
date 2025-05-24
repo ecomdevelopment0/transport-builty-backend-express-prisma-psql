@@ -3,13 +3,13 @@ model payment_modes {
     name                String                @unique
     description         String?
     firm_id             String?
-    firm                firms?                @relation(fields: [firm_id], references: [id])
-    payment_collections payment_collections[]
-    rentals             rentals[]
     active_flag         Boolean               @default(true)
     delete_flag         Boolean               @default(false)
     modified_at         DateTime              @updatedAt
     created_at          DateTime              @default(now())
     created_by          String?
     modified_by         String?
+    firm                firms?                @relation(fields: [firm_id], references: [id])
+    payment_collections payment_collections[]
+    rentals             rentals[]
 }

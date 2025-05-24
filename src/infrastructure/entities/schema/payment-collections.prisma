@@ -1,17 +1,17 @@
 model payment_collections {
-    id              String        @id @default(uuid())
-    amount          Float         @default(0)
+    id              String         @id @default(uuid())
     rental_id       String
-    rental          rentals       @relation(fields: [rental_id], references: [id])
     firm_id         String
-    firm            firms         @relation(fields: [firm_id], references: [id])
     payment_mode_id String
-    payment_mode    payment_modes @relation(fields: [payment_mode_id], references: [id])
+    amount          Float          @default(0)
     description     String?
-    active_flag     Boolean       @default(true)
-    delete_flag     Boolean       @default(false)
-    modified_at     DateTime      @updatedAt
-    created_at      DateTime      @default(now())
+    active_flag     Boolean        @default(true)
+    delete_flag     Boolean        @default(false)
+    modified_at     DateTime       @updatedAt
+    created_at      DateTime       @default(now())
     created_by      String?
     modified_by     String?
+    firm            firms?         @relation(fields: [firm_id], references: [id])
+    payment_mode    payment_modes? @relation(fields: [payment_mode_id], references: [id])
+    rental          rentals?       @relation(fields: [rental_id], references: [id])
 }

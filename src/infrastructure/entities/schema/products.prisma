@@ -21,7 +21,6 @@ model products {
     keywords             String[]          @default([])
     media                String[]          @default([])
     status               Status            @default(available)
-    rental_products      rental_products[]
     active_flag          Boolean           @default(true)
     delete_flag          Boolean           @default(false)
     modified_at          DateTime          @updatedAt

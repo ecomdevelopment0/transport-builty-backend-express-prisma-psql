@@ -10,31 +10,31 @@ export class AuthController {
   @inject(Instances.AuthService as any)
   private service!: AuthService;
 
-  @httpPost("/send-otp")
+  @httpPost("/send_otp")
   async sendOtp(request: Request, response: Response): Promise<void> {
     let result = await (this.service as any).sendOtp(request.body as any);
     return successResponse(response, result);
   }
 
-  @httpPost("/verify-otp")
+  @httpPost("/verify_otp")
   async verifyOtp(request: Request, response: Response): Promise<void> {
     let result = await (this.service as any).verifyOtp(request.body as any, request.headers as any);
     return successResponse(response, result);
   }
 
-  @httpPost("/sso-login")
+  @httpPost("/sso_login")
   async ssoLogin(request: Request, response: Response): Promise<void> {
     let result = await (this.service as any).ssoLogin(request.body as any);
     return successResponse(response, result);
   }
 
-  @httpPost("/admin/send-otp")
+  @httpPost("/admin/send_otp")
   async adminSendOtp(request: Request, response: Response): Promise<void> {
     let result = await (this.service as any).adminSendOtp(request.body as any);
     return successResponse(response, result);
   }
 
-  @httpPost("/admin/verify-otp")
+  @httpPost("/admin/verify_otp")
   async adminVerifyOtp(request: Request, response: Response): Promise<void> {
     let result = await (this.service as any).adminVerifyOtp(request.body as any, request.headers as any);
     return successResponse(response, result);
