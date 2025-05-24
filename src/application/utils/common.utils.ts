@@ -3,9 +3,9 @@ export function isValidEmail(email: string) {
   return regex.test(email);
 }
 
-export function isValidPhoneNumber(phoneNumber: string) {
+export function isValidMobile(mobile: string) {
   const regex = /^[6-9]\d{9}$/;
-  return regex.test(phoneNumber);
+  return regex.test(mobile);
 }
 
 export const generateOTP = (length: number = 6): string => {

@@ -1,30 +1,30 @@
 model products {
-    id                   String            @id @default(uuid())
+    id                   String   @id @default(uuid())
     firm_id              String
-    firm                 firms             @relation(fields: [firm_id], references: [id])
+    firm                 firms    @relation(fields: [firm_id], references: [id])
     name                 String
     code                 String
-    price                Float             @default(0)
-    sales_price          Float             @default(0)
-    fine                 Float             @default(0)
-    deposit              Float             @default(0)
+    price                Float    @default(0)
+    sales_price          Float    @default(0)
+    fine                 Float    @default(0)
+    deposit              Float    @default(0)
     description          String?
-    rental_period        Period            @default(per_hour)
-    fine_period          Period            @default(per_day)
+    rental_period        Period   @default(per_hour)
+    fine_period          Period   @default(per_day)
     color                String?
     type                 String?
     barcode              String?
     brand                String?
     size                 String?
-    stock                Float             @default(0)
-    current_rented_stock Float             @default(0)
-    keywords             String[]          @default([])
-    media                String[]          @default([])
-    status               Status            @default(available)
-    active_flag          Boolean           @default(true)
-    delete_flag          Boolean           @default(false)
-    modified_at          DateTime          @updatedAt
-    created_at           DateTime          @default(now())
+    stock                Float    @default(0)
+    current_rented_stock Float    @default(0)
+    keywords             String[] @default([])
+    media                String[] @default([])
+    status               Status   @default(available)
+    active_flag          Boolean  @default(true)
+    delete_flag          Boolean  @default(false)
+    modified_at          DateTime @updatedAt
+    created_at           DateTime @default(now())
     created_by           String?
     modified_by          String?
 

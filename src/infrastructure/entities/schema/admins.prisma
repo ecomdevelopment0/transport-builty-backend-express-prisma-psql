@@ -1,11 +1,11 @@
 model admins {
     id                     String   @id @default(uuid())
     full_name              String?
-    phone                  String?
+    mobile                  String?
     email                  String?
     image                  String?
     username               String?
-    alternate_phone        String?
+    alternate_mobile        String?
     address                String?
     documents              String[] @default([])
     city                   String?

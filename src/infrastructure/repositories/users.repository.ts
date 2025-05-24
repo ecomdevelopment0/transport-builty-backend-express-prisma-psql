@@ -7,6 +7,6 @@ import { BaseRepository } from "../../base";
 @provide(Instances.UsersRepository as any)
 export class UsersRepository extends BaseRepository {
   constructor() {
-    super(EntityConstants.BUYERS, prisma);
+    super(EntityConstants.USERS, prisma);
   }
 }

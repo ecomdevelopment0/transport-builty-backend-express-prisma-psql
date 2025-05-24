@@ -1,6 +1,8 @@
 model firms {
     id                   String                 @id @default(uuid())
     name                 String
+    mobile               String?
+    email                String?
     media                String[]               @default([])
     gst_number           String?
     address              String?
@@ -8,8 +10,6 @@ model firms {
     state                String?
     country              String?
     pin_code             String?
-    phone                String?
-    email                String?
     description          String?
     active_flag          Boolean                @default(true)
     delete_flag          Boolean                @default(false)
@@ -21,6 +21,6 @@ model firms {
     terms_and_conditions terms_and_conditions[]
     payment_collections  payment_collections[]
     payment_modes        payment_modes[]
-    users               users[]
-    owners              owners[]
+    users                users[]
+    owners               owners[]
 }

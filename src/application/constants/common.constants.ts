@@ -1,3 +1,4 @@
+export const SECRET_KEY = "rental-backend-express-prisma-psql";
 export const NODE_CACHE_KEYS = {};
 
 export const NODE_CACHE_USED_KEYS = Object.values(NODE_CACHE_KEYS);

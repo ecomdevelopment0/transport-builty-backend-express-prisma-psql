@@ -1,17 +1,16 @@
 import { provide } from "inversify-binding-decorators";
-import { Instances } from "../../api/bindings/container-types";
 import { inject } from "inversify";
-// import { AdminsRepository } from "../../infrastructure/repositories/admins.repository";
-import { BlacklistsRepository } from "../../infrastructure/repositories/blacklists.repository";
 import jwt from "jsonwebtoken";
+import { Instances } from "../../api/bindings/container-types";
 import { NotFoundException, ValidationException } from "../../base";
 import { ErrorConstants } from "../constants/error.constants";
-import { generateOTP, isValidEmail } from "../utils/common.utils";
+import { generateOTP, isValidEmail, isValidMobile } from "../utils/common.utils";
 import { UsersService } from "./users.service";
 import { OwnersService } from "./owners.service";
 import { SettingsService } from "./settings.service";
 import NodeCache from "node-cache";
-import { TRIGGERS_EMAIL, TRIGGERS_SMS } from "../constants/common.constants";
+import { BlacklistsRepository } from "../../infrastructure/repositories/blacklists.repository";
+import { SECRET_KEY, TRIGGERS_EMAIL, TRIGGERS_SMS } from "../constants/common.constants";
 const node_cache_service = new NodeCache();
 
 @provide(Instances.AuthService as any)
@@ -28,14 +27,14 @@ export class AuthService {
   private blacklistsRepository!: BlacklistsRepository;
 
   private createAccessToken(data: any) {
-    return jwt.sign(data, process.env.SECRET_KEY as string, {
-      expiresIn: (process.env.ACCESS_TOKEN_EXPIRE as any) || "24h",
+    return jwt.sign(data, (process.env.SECRET_KEY as string) || SECRET_KEY, {
+      expiresIn: (process.env.ACCESS_TOKEN_EXPIRE as any) || "30d",
     });
   }
 
   private createRefreshToken(data: any) {
-    return jwt.sign(data, process.env.SECRET_KEY as string, {
-      expiresIn: (process.env.REFRESH_TOKEN_EXPIRE as any) || "24h",
+    return jwt.sign(data, (process.env.SECRET_KEY as string) || SECRET_KEY, {
+      expiresIn: (process.env.REFRESH_TOKEN_EXPIRE as any) || "30d",
     });
   }
 
@@ -56,7 +55,7 @@ export class AuthService {
     }
 
     if (mobile) {
-      if (!isValidEmail(mobile)) throw new ValidationException(ErrorConstants.INVALID_MOBILE);
+      if (!isValidMobile(mobile)) throw new ValidationException(ErrorConstants.INVALID_MOBILE);
       if (settings?.is_sms_otp_mode_live) {
         otp = generateOTP();
         await this.settingsService.sendSms({ data: [otp], mobile, action: TRIGGERS_SMS.SIGN_UP_OTP_SMS });
@@ -68,9 +67,8 @@ export class AuthService {
   }
 
   async verifyOtp(data: any): Promise<any> {
-    let { otp, type = "seller", email, mobile } = data;
+    let { otp, type = "owner", email, mobile } = data;
     if (!email && !mobile) throw new ValidationException(ErrorConstants.PLEASE_PROVIDE_VALID_DETAILS);
-
     if (email) {
       let otp_from_cache = node_cache_service.get(email);
       console.log({ otp_from_cache });
@@ -87,16 +85,16 @@ export class AuthService {
 
     let user: any;
     let is_new_user: boolean = false;
-    if (type === "seller") {
+    if (type === "owner") {
       [[user]] = await this.ownersService.filterInternal({ email, mobile });
       if (!user) {
-        user = await this.ownersService.createInternal({ email, mobile });
+        user = await this.ownersService.create({ email, mobile });
         is_new_user = true;
       }
-    } else if (type === "buyer") {
+    } else if (type === "user") {
       [[user]] = await this.usersService.filterInternal({ email, mobile });
       if (!user) {
-        user = await this.usersService.createInternal({ email, mobile });
+        user = await this.usersService.create({ email, mobile });
         is_new_user = true;
       }
     } else {
@@ -112,17 +110,17 @@ export class AuthService {
   }
 
   async ssoLogin(data: any): Promise<any> {
-    let { email, username, fullName, picture, type = "seller" } = data;
+    let { email, username, fullName, picture, type = "owner" } = data;
 
     let user: any;
     let is_new_user: boolean = false;
-    if (type === "seller") {
+    if (type === "owner") {
       [[user]] = await this.ownersService.filterInternal({ email });
       if (!user) {
         user = await this.ownersService.createInternal({ email, username, fullName, image: picture });
         is_new_user = true;
       }
-    } else if (type === "buyer") {
+    } else if (type === "user") {
       [[user]] = await this.usersService.filterInternal({ email });
       if (!user) {
         user = await this.usersService.createInternal({ email, username, fullName, image: picture });
