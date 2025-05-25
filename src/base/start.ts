@@ -12,7 +12,6 @@ interface StartApplicationParams {
   DBInit: () => Promise<void>;
   DBDisconnect: () => Promise<void>;
   globalErrorHandler?: any;
-  swaggerSpecification?: any;
   contextPath?: string;
   port?: number;
 }
@@ -21,7 +20,6 @@ export async function startApplication({
   DBInit,
   DBDisconnect,
   globalErrorHandler,
-  swaggerSpecification,
   contextPath = process.env.CONTEXT_PATH || "/api",
   port = parseInt(process.env.PORT || "3000", 10),
 }: StartApplicationParams): Promise<any> {

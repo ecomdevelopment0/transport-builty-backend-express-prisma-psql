@@ -4,13 +4,13 @@ import jwt from "jsonwebtoken";
 import { Instances } from "../../api/bindings/container-types";
 import { NotFoundException, ValidationException } from "../../base";
 import { ErrorConstants } from "../constants/error.constants";
-import { CustomersService } from "./customers.service";
 import { OwnersService } from "./owners.service";
 import { SettingsService } from "./settings.service";
 import NodeCache from "node-cache";
 import { BlacklistsRepository } from "../../infrastructure/repositories/blacklists.repository";
 import { SECRET_KEY, TRIGGERS_EMAIL, TRIGGERS_SMS } from "../constants/common.constants";
 import { generateOTP, isValidEmail, isValidMobile } from "../../base/utils";
+import { CustomersService } from "./customers.service";
 const node_cache_service = new NodeCache();
 
 @provide(Instances.AuthService as any)
