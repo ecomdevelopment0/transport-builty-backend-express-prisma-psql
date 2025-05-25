@@ -25,12 +25,14 @@ export class BaseController {
 
   @httpPost("/list")
   async list(request: Request, response: Response): Promise<void> {
-    let { sort, page_size = 50, page = 1, filter_type, search, ...data } = request.body as any;
+    let { sort, page_size = 50, page = 1, filter_type, select, include, search, ...data } = request.body as any;
     const options = {
       page: parseInt(page as string),
       page_size: parseInt(page_size as string),
       filter_type,
       sort,
+      select,
+      include,
       search,
     };
     let [result, count] = await (this.service as any).list(data, options);
@@ -39,7 +41,17 @@ export class BaseController {
 
   @httpPost("/one")
   async one(request: Request, response: Response): Promise<void> {
-    let result: any = await (this.service as any).one(request.body as any, { page_size: 1, page: 1 });
+    let { sort, page_size = 1, page = 1, filter_type, select, include, search, ...data } = request.body as any;
+    const options = {
+      page: parseInt(page as string),
+      page_size: parseInt(page_size as string),
+      filter_type,
+      sort,
+      select,
+      include,
+      search,
+    };
+    let result: any = await (this.service as any).one(data, options);
     return successResponse(response, result);
   }
 
