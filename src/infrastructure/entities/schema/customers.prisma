@@ -3,11 +3,11 @@ model customers {
     firm_id                String
     firm                   firms     @relation(fields: [firm_id], references: [id])
     full_name              String?
-    mobile                  String?
+    mobile                 String?
     email                  String?
     image                  String?
     username               String?
-    alternate_mobile        String?
+    alternate_mobile       String?
     address                String?
     documents              String[]  @default([])
     city                   String?
