@@ -1,6 +1,6 @@
 export * from "../controllers/auth.controller";
 export * from "../controllers/admins.controller";
-export * from "../controllers/users.controller";
+export * from "../controllers/customers.controller";
 export * from "../controllers/firms.controller";
 export * from "../controllers/payment-collections.controller";
 export * from "../controllers/payment-modes.controller";

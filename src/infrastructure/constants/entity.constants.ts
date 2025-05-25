@@ -1,7 +1,7 @@
 export class EntityConstants {
   public static readonly ADMINS = "admins";
   public static readonly BLACKLISTS = "blacklists";
-  public static readonly USERS = "users";
+  public static readonly CUSTOMERS = "customers";
   public static readonly FIRMS = "firms";
   public static readonly PAYMENT_COLLECTIONS = "payment_collections";
   public static readonly PAYMENT_MODES = "payment_modes";

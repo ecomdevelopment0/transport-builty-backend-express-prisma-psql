@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 import { Instances } from "../../api/bindings/container-types";
 import { NotFoundException, ValidationException } from "../../base";
 import { ErrorConstants } from "../constants/error.constants";
-import { UsersService } from "./users.service";
+import { CustomersService } from "./customers.service";
 import { OwnersService } from "./owners.service";
 import { SettingsService } from "./settings.service";
 import NodeCache from "node-cache";
@@ -15,8 +15,8 @@ const node_cache_service = new NodeCache();
 
 @provide(Instances.AuthService as any)
 export class AuthService {
-  @inject(Instances.UsersService as any)
-  private usersService!: UsersService;
+  @inject(Instances.CustomersService as any)
+  private customersService!: CustomersService;
   @inject(Instances.SettingsService as any)
   private settingsService!: SettingsService;
   @inject(Instances.OwnersService as any)
@@ -116,9 +116,9 @@ export class AuthService {
         is_new_user = true;
       }
     } else if (type === "user") {
-      [[user]] = await this.usersService.filterInternal(data);
+      [[user]] = await this.customersService.filterInternal(data);
       if (!user) {
-        user = await this.usersService.create(data);
+        user = await this.customersService.create(data);
         is_new_user = true;
       }
     } else {

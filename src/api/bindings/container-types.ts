@@ -2,7 +2,7 @@ let InstancesList: any[] = [
   "Admins",
   "Auth",
   "Blacklists",
-  "Users",
+  "Customers",
   "Firms",
   "PaymentCollections",
   "PaymentModes",

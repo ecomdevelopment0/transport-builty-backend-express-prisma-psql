@@ -21,6 +21,6 @@ model firms {
     terms_and_conditions terms_and_conditions[]
     payment_collections  payment_collections[]
     payment_modes        payment_modes[]
-    users                users[]
+    customers                customers[]
     owners               owners[]
 }
