@@ -1,18 +1,5 @@
 import { ErrorConstants } from "../constants/error.constant";
 
-// export function handlePrismaError(error: any): string {
-//   switch (error.code) {
-//     case ErrorConstants.ERROR_CODE_DUPLICATE_ENTRY:
-//       return `${ErrorConstants.DUPLICATE_ENTRY_MESSAGE}${error.meta?.target}`;
-//     case ErrorConstants.ERROR_CODE_FOREIGN_KEY_CONSTRAINT:
-//       return `${ErrorConstants.FOREIGN_KEY_CONSTRAINT_MESSAGE}${error.meta?.field}`;
-//     case ErrorConstants.ERROR_CODE_RECORD_NOT_FOUND:
-//       return `${ErrorConstants.RECORD_NOT_FOUND_MESSAGE}`;
-//     default:
-//       return `${ErrorConstants.INTERNAL_SERVER_ERROR_MESSAGE}`;
-//   }
-// }
-
 export function handlePrismaError(error: any): { code: number; message: string } {
   switch (error.code) {
     case ErrorConstants.ERROR_CODE_DUPLICATE_ENTRY:

@@ -6,6 +6,7 @@ export * from "../controllers/payment-collections.controller";
 export * from "../controllers/payment-modes.controller";
 export * from "../controllers/prefixes.controller";
 export * from "../controllers/products.controller";
+export * from "../controllers/provider-configurations.controller";
 export * from "../controllers/rentals.controller";
 export * from "../controllers/owners.controller";
 export * from "../controllers/subscriptions.controller";

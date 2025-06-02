@@ -39,7 +39,6 @@ export async function startApplication({
       app.use(multer({ storage: multer.memoryStorage() }).any());
       app.use((req, res, next) => {
         const open_paths = ["/auth"];
-        console.log(req.path);
         const is_open = open_paths.some(path => req.path.startsWith(contextPath + path));
         if (is_open) {
           return next();

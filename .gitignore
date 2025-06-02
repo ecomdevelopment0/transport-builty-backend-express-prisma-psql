@@ -58,3 +58,4 @@ migrations
 client_output
 .sql
 .toml
+images

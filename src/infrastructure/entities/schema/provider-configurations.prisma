@@ -35,4 +35,6 @@ model provider_configurations {
     created_at            DateTime @default(now())
     modified_at           DateTime @updatedAt
     modified_by           String?
+
+    @@unique([name, provider_type])
 }

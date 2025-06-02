@@ -33,7 +33,6 @@ export const verifyJWT = (req: Request<ParamsDictionary>, res: Response, next: N
   const token: any = token_parts[1];
   let result: any = jwt.verify(token, SECRET_KEY);
   if (!result) throw new ValidationException(ErrorConstants.INVALID_OR_EXPIRE_TOKEN);
-  console.log({ result });
   next();
 };
 
@@ -191,4 +190,8 @@ export function formatValueForSQL(value: any): string {
     default:
       throw new Error(`Unsupported data type: ${typeof value}`);
   }
+}
+
+export function formatString(input: string): string {
+  return input.toLowerCase().replace(/\s+/g, "-");
 }

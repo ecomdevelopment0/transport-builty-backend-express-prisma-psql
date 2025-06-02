@@ -12,4 +12,5 @@ export const ErrorConstants = {
   INVALID_REFRESH_TOKEN: "Invalid refresh token ...!",
   INVALID_OR_EXPIRE_TOKEN: "Invalid or expired token",
   FIRM_CREATION_FAILED: "Firm creation failed ...!",
+  PATH_NOT_FOUND: "path not found ..!",
 };
