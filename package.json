@@ -7,6 +7,7 @@
     "build": "npm run prisma:generate && npm run prisma:migrate:prod && tsc",
     "dev": "nodemon",
     "prod": "nodemon",
+    "format": "prettier --write \"src/**/*.ts\"",
     "prisma:generate": "prisma generate --schema=./src/infrastructure/entities/schema",
     "prisma:migrate:dev": "prisma migrate dev --schema=./src/infrastructure/entities/schema",
     "prisma:migrate:prod": "prisma migrate deploy --schema=./src/infrastructure/entities/schema",

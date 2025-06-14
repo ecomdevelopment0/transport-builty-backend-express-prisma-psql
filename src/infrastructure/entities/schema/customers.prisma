@@ -4,6 +4,7 @@ model customers {
     firm                   firms     @relation(fields: [firm_id], references: [id])
     full_name              String?
     mobile                 String?
+    type                   String?
     email                  String?
     image                  String?
     username               String?
