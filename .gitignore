@@ -53,9 +53,4 @@ Thumbs.db
 # added manually
 package-lock.json
 .env 
-src/infrastructure/entities/migrations 
-migrations
-client_output
-.sql
-.toml
 images
