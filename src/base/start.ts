@@ -52,6 +52,11 @@ export async function startApplication({
         message: `Service is running on port ${port}, root path --> ${contextPath}`,
       });
     });
+    app.get("/", (req, res) => {
+      res.json({
+        message: `Service is running on port ${port}, root path --> ${contextPath}`,
+      });
+    });
     const httpServer: Server = app.listen(port, () => {
       console.log(`Service is running on port ${port}, root path --> ${contextPath}`);
     });
