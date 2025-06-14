@@ -21,20 +21,18 @@ export class AuthService {
   private settingsService!: SettingsService;
   @inject(Instances.OwnersService as any)
   private ownersService!: OwnersService;
-  //   @inject(Instances.AdminsService as any)
-  //   private adminsService!: AdminsService;
   @inject(Instances.BlacklistsRepository as any)
   private blacklistsRepository!: BlacklistsRepository;
 
   private createAccessToken(data: any) {
     return jwt.sign(data, SECRET_KEY, {
-      expiresIn: (process.env.ACCESS_TOKEN_EXPIRE as any) || "30d",
+      expiresIn: (process.env.ACCESS_TOKEN_EXPIRE as any) || "2d",
     });
   }
 
   private createRefreshToken(data: any) {
     return jwt.sign(data, SECRET_KEY, {
-      expiresIn: (process.env.REFRESH_TOKEN_EXPIRE as any) || "30d",
+      expiresIn: (process.env.REFRESH_TOKEN_EXPIRE as any) || "7d",
     });
   }
 
