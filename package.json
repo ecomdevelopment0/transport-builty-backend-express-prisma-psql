@@ -4,6 +4,7 @@
   "description": "",
   "main": "src/app.ts",
   "scripts": {
+    "build": "npm run prisma:generate && npm run prisma:migrate:prod && tsc",
     "dev": "nodemon",
     "prod": "nodemon",
     "prisma:generate": "prisma generate --schema=./src/infrastructure/entities/schema",
