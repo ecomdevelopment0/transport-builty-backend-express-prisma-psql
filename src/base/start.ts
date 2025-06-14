@@ -20,7 +20,7 @@ export async function startApplication({
   DBInit,
   DBDisconnect,
   globalErrorHandler,
-  contextPath = process.env.CONTEXT_PATH || "/api",
+  contextPath = process.env.CONTEXT_PATH || "/api/v1",
   port = parseInt(process.env.PORT || "3000", 10),
 }: StartApplicationParams): Promise<any> {
   try {
