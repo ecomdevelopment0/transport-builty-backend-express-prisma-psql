@@ -8,19 +8,16 @@ export function handlePrismaError(error: any): { code: number; message: string }
         message:
           `${ErrorConstants.DUPLICATE_ENTRY_MESSAGE}${error.meta?.target}` || ErrorConstants?.DUPLICATE_ERROR_MESSAGE,
       };
-
     case ErrorConstants.ERROR_CODE_FOREIGN_KEY_CONSTRAINT:
       return {
         code: ErrorConstants.INTERNAL_SERVER_ERROR,
         message: `${ErrorConstants.FOREIGN_KEY_CONSTRAINT_MESSAGE}${error.meta?.field}`,
       };
-
     case ErrorConstants.ERROR_CODE_RECORD_NOT_FOUND:
       return {
         code: ErrorConstants.NOT_FOUND,
         message: ErrorConstants.RECORD_NOT_FOUND_MESSAGE,
       };
-
     default:
       return {
         code: ErrorConstants.INTERNAL_SERVER_ERROR,
