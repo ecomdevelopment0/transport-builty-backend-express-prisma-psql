@@ -2,9 +2,14 @@ model firms {
     id                   String                 @id @default(uuid())
     name                 String
     mobile               String?
+    mobile_1             String?
+    mobile_2             String?
+    mobile_3             String?
     email                String?
+    website              String?
     media                String[]               @default([])
     gst_number           String?
+    pan_card_number      String?
     address              String?
     city                 String?
     state                String?
@@ -23,4 +28,5 @@ model firms {
     payment_modes        payment_modes[]
     customers            customers[]
     owners               owners[]
+    charges              charges[]
 }

@@ -10,6 +10,7 @@ let InstancesList: any[] = [
   "Products",
   "Rentals",
   "Owners",
+  "Charges",
   "Subscriptions",
   "Settings",
   "TermsAndConditions",

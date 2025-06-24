@@ -9,7 +9,10 @@ model customers {
     image                  String?
     username               String?
     alternate_mobile       String?
+    gst_number             String?
+    pan_card_number        String?
     address                String?
+    media                  String[]  @default([])
     documents              String[]  @default([])
     city                   String?
     state                  String?

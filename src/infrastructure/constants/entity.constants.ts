@@ -11,6 +11,7 @@ export class EntityConstants {
   public static readonly OWNERS = "owners";
   public static readonly SUBSCRIPTIONS = "subscriptions";
   public static readonly SETTINGS = "settings";
+  public static readonly CHARGES = "charges";
   public static readonly TERMS_AND_CONDITIONS = "terms_and_conditions";
   public static readonly PROVIDER_CONFIGURATIONS = "provider_configurations";
   public static readonly TEMPLATES = "templates";
