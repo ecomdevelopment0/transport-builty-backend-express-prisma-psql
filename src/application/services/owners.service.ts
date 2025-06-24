@@ -21,7 +21,6 @@ export class OwnersService extends BaseService {
   async create(data: any): Promise<any> {
     let { email, mobile } = data;
     if (!email && !mobile) throw new ValidationException(ErrorConstants.PLEASE_PROVIDE_VALID_DETAILS);
-
     let [[firm]] = await this.firmsService.filterInternal({ name: DEFAULT_FIRM_NAME, email, mobile });
     if (!firm) {
       firm = await this.firmsService.create({ name: DEFAULT_FIRM_NAME, email, mobile });

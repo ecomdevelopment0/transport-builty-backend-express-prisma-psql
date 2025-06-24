@@ -39,10 +39,8 @@ export class AuthService {
   async sendOtp(data: any): Promise<any> {
     let { email, mobile } = data;
     if (!email && !mobile) throw new ValidationException(ErrorConstants.PLEASE_PROVIDE_VALID_DETAILS);
-
     let otp = "123456";
     let [[settings]] = await this.settingsService.filterInternal({});
-
     if (email) {
       if (!isValidEmail(email)) throw new ValidationException(ErrorConstants.INVALID_EMAIL);
       if (settings?.is_email_otp_mode_live) {
@@ -51,7 +49,6 @@ export class AuthService {
       }
       await node_cache_service.set(email, otp, 600); // expire in 10 mins
     }
-
     if (mobile) {
       if (!isValidMobile(mobile)) throw new ValidationException(ErrorConstants.INVALID_MOBILE);
       if (settings?.is_sms_otp_mode_live) {
@@ -60,7 +57,6 @@ export class AuthService {
       }
       await node_cache_service.set(mobile, otp, 600); // expire in 10 mins
     }
-
     return { message: "OTP sent successfully" };
   }
 
@@ -73,14 +69,12 @@ export class AuthService {
       if (!otp_from_cache) throw new ValidationException(ErrorConstants.EXPIRED_OTP);
       if (otp !== otp_from_cache) throw new ValidationException(ErrorConstants.INVALID_OTP);
     }
-
     if (mobile) {
       let otp_from_cache = node_cache_service.get(mobile);
       console.log({ otp_from_cache });
       if (!otp_from_cache) throw new ValidationException(ErrorConstants.EXPIRED_OTP);
       if (otp !== otp_from_cache) throw new ValidationException(ErrorConstants.INVALID_OTP);
     }
-
     return await this.init(type, { email, mobile });
   }
 
@@ -122,7 +116,6 @@ export class AuthService {
     } else {
       throw new ValidationException("Invalid type ... !");
     }
-
     return {
       ...user,
       is_new_user,

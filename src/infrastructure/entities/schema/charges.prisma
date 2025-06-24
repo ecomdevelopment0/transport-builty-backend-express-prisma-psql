@@ -1,16 +1,13 @@
 model charges {
-    id             String   @id @default(uuid())
-    name           String
-    firm_id        String
-    firm           firms    @relation(fields: [firm_id], references: [id])
-    description    String?
-    taxable_amount Float    @default(0)
-    gst_percentage Float    @default(0)
-    amount         Float    @default(0)
-    active_flag    Boolean  @default(true)
-    delete_flag    Boolean  @default(false)
-    modified_at    DateTime @updatedAt
-    created_at     DateTime @default(now())
-    created_by     String?
-    modified_by    String?
+    id          String   @id @default(uuid())
+    firm_id     String
+    name        String
+    description String?
+    active_flag Boolean  @default(true)
+    delete_flag Boolean  @default(false)
+    modified_at DateTime @updatedAt
+    created_at  DateTime @default(now())
+    created_by  String?
+    modified_by String?
+    firm        firms?   @relation(fields: [firm_id], references: [id])
 }

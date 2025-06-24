@@ -155,16 +155,36 @@ exports.Prisma.BlacklistsScalarFieldEnum = {
   modified_by: 'modified_by'
 };
 
+exports.Prisma.ChargesScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  firm_id: 'firm_id',
+  description: 'description',
+  taxable_amount: 'taxable_amount',
+  gst_percentage: 'gst_percentage',
+  amount: 'amount',
+  active_flag: 'active_flag',
+  delete_flag: 'delete_flag',
+  modified_at: 'modified_at',
+  created_at: 'created_at',
+  created_by: 'created_by',
+  modified_by: 'modified_by'
+};
+
 exports.Prisma.CustomersScalarFieldEnum = {
   id: 'id',
   firm_id: 'firm_id',
   full_name: 'full_name',
   mobile: 'mobile',
+  type: 'type',
   email: 'email',
   image: 'image',
   username: 'username',
   alternate_mobile: 'alternate_mobile',
+  gst_number: 'gst_number',
+  pan_card_number: 'pan_card_number',
   address: 'address',
+  media: 'media',
   documents: 'documents',
   city: 'city',
   state: 'state',
@@ -184,9 +204,14 @@ exports.Prisma.FirmsScalarFieldEnum = {
   id: 'id',
   name: 'name',
   mobile: 'mobile',
+  mobile_1: 'mobile_1',
+  mobile_2: 'mobile_2',
+  mobile_3: 'mobile_3',
   email: 'email',
+  website: 'website',
   media: 'media',
   gst_number: 'gst_number',
+  pan_card_number: 'pan_card_number',
   address: 'address',
   city: 'city',
   state: 'state',
@@ -198,6 +223,33 @@ exports.Prisma.FirmsScalarFieldEnum = {
   modified_at: 'modified_at',
   created_at: 'created_at',
   created_by: 'created_by',
+  modified_by: 'modified_by'
+};
+
+exports.Prisma.InvoicesScalarFieldEnum = {
+  id: 'id',
+  to_customer_id: 'to_customer_id',
+  from_customer_id: 'from_customer_id',
+  payment_mode_id: 'payment_mode_id',
+  invoice_id: 'invoice_id',
+  invoice_date: 'invoice_date',
+  invoice_status: 'invoice_status',
+  transport_details: 'transport_details',
+  charges: 'charges',
+  is_opted_for_insurance: 'is_opted_for_insurance',
+  goods_value: 'goods_value',
+  demurrage_day: 'demurrage_day',
+  demurrage_charges: 'demurrage_charges',
+  advance_amount: 'advance_amount',
+  payable_amount: 'payable_amount',
+  total_amount: 'total_amount',
+  products: 'products',
+  signature: 'signature',
+  active_flag: 'active_flag',
+  delete_flag: 'delete_flag',
+  created_by: 'created_by',
+  created_at: 'created_at',
+  modified_at: 'modified_at',
   modified_by: 'modified_by'
 };
 
@@ -274,20 +326,20 @@ exports.Prisma.ProductsScalarFieldEnum = {
   firm_id: 'firm_id',
   name: 'name',
   code: 'code',
-  price: 'price',
-  sales_price: 'sales_price',
+  rate: 'rate',
+  weight: 'weight',
+  number_of_packs: 'number_of_packs',
+  mrp: 'mrp',
   fine: 'fine',
   deposit: 'deposit',
   description: 'description',
-  rental_period: 'rental_period',
-  fine_period: 'fine_period',
+  unit: 'unit',
   color: 'color',
   type: 'type',
   barcode: 'barcode',
   brand: 'brand',
   size: 'size',
   stock: 'stock',
-  current_rented_stock: 'current_rented_stock',
   keywords: 'keywords',
   media: 'media',
   status: 'status',
@@ -330,30 +382,6 @@ exports.Prisma.Provider_configurationsScalarFieldEnum = {
   project_id: 'project_id',
   key_file_name: 'key_file_name',
   cloud_name: 'cloud_name',
-  active_flag: 'active_flag',
-  delete_flag: 'delete_flag',
-  created_by: 'created_by',
-  created_at: 'created_at',
-  modified_at: 'modified_at',
-  modified_by: 'modified_by'
-};
-
-exports.Prisma.RentalsScalarFieldEnum = {
-  id: 'id',
-  user_id: 'user_id',
-  payment_mode_id: 'payment_mode_id',
-  invoice_id: 'invoice_id',
-  invoice_date: 'invoice_date',
-  invoice_status: 'invoice_status',
-  rental_period: 'rental_period',
-  discount_amount: 'discount_amount',
-  pending_amount: 'pending_amount',
-  advance_amount: 'advance_amount',
-  deposit_amount: 'deposit_amount',
-  paid_amount: 'paid_amount',
-  total_amount: 'total_amount',
-  fine_amount: 'fine_amount',
-  rental_products: 'rental_products',
   active_flag: 'active_flag',
   delete_flag: 'delete_flag',
   created_by: 'created_by',
@@ -448,20 +476,6 @@ exports.Prisma.JsonNullValueFilter = {
   JsonNull: Prisma.JsonNull,
   AnyNull: Prisma.AnyNull
 };
-exports.Period = exports.$Enums.Period = {
-  per_hour: 'per_hour',
-  per_day: 'per_day',
-  per_week: 'per_week',
-  per_month: 'per_month',
-  per_year: 'per_year'
-};
-
-exports.Status = exports.$Enums.Status = {
-  available: 'available',
-  unavailable: 'unavailable',
-  rented: 'rented'
-};
-
 exports.InvoiceStatus = exports.$Enums.InvoiceStatus = {
   paid: 'paid',
   unpaid: 'unpaid',
@@ -469,18 +483,24 @@ exports.InvoiceStatus = exports.$Enums.InvoiceStatus = {
   overdue: 'overdue'
 };
 
+exports.Status = exports.$Enums.Status = {
+  available: 'available',
+  unavailable: 'unavailable'
+};
+
 exports.Prisma.ModelName = {
   admins: 'admins',
   blacklists: 'blacklists',
+  charges: 'charges',
   customers: 'customers',
   firms: 'firms',
+  invoices: 'invoices',
   owners: 'owners',
   payment_collections: 'payment_collections',
   payment_modes: 'payment_modes',
   prefixes: 'prefixes',
   products: 'products',
   provider_configurations: 'provider_configurations',
-  rentals: 'rentals',
   settings: 'settings',
   subscriptions: 'subscriptions',
   templates: 'templates',
