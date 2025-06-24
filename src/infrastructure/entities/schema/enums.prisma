@@ -1,15 +1,6 @@
-enum Period {
-    per_hour
-    per_day
-    per_week
-    per_month
-    per_year
-}
-
 enum Status {
     available
     unavailable
-    rented
 }
 
 enum InvoiceStatus {

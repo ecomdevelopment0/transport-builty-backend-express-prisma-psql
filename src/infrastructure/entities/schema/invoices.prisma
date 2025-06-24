@@ -1,28 +1,30 @@
 model invoices {
-    id                  String                @id @default(uuid())
-    to_customer_id      String
-    from_customer_id    String
-    payment_mode_id     String
-    invoice_id          String
-    invoice_date        DateTime              @default(now())
-    invoice_status      InvoiceStatus         @default(unpaid)
-    rental_period       Period                @default(per_hour)
-    discount_amount     Float                 @default(0)
-    pending_amount      Float                 @default(0)
-    advance_amount      Float                 @default(0)
-    deposit_amount      Float                 @default(0)
-    paid_amount         Float                 @default(0)
-    total_amount        Float                 @default(0)
-    fine_amount         Float                 @default(0)
-    rental_products     Json[]                @default([])
-    active_flag         Boolean               @default(true)
-    delete_flag         Boolean               @default(false)
-    created_by          String?
-    created_at          DateTime              @default(now())
-    modified_at         DateTime              @updatedAt
-    modified_by         String?
-    payment_collections payment_collections[]
-    to_customer         customers?            @relation("to_customer", fields: [to_customer_id], references: [id])
-    from_customer       customers?            @relation("from_customer", fields: [from_customer_id], references: [id])
-    payment_mode        payment_modes?        @relation(fields: [payment_mode_id], references: [id])
+    id                     String                @id @default(uuid())
+    to_customer_id         String?
+    from_customer_id       String?
+    payment_mode_id        String?
+    invoice_id             String?
+    invoice_date           DateTime              @default(now())
+    invoice_status         InvoiceStatus         @default(unpaid)
+    transport_details      Json?
+    charges                Json[]                @default([])
+    is_opted_for_insurance Boolean               @default(false)
+    goods_value            Float                 @default(0)
+    demurrage_day          Float                 @default(0)
+    demurrage_charges      Float                 @default(0)
+    advance_amount         Float                 @default(0)
+    payable_amount         Float                 @default(0)
+    total_amount           Float                 @default(0)
+    products               Json[]                @default([])
+    signature              String?
+    active_flag            Boolean               @default(true)
+    delete_flag            Boolean               @default(false)
+    created_by             String?
+    created_at             DateTime              @default(now())
+    modified_at            DateTime              @updatedAt
+    modified_by            String?
+    payment_collections    payment_collections[]
+    to_customer            customers?            @relation("to_customer", fields: [to_customer_id], references: [id])
+    from_customer          customers?            @relation("from_customer", fields: [from_customer_id], references: [id])
+    payment_mode           payment_modes?        @relation(fields: [payment_mode_id], references: [id])
 }
