@@ -1,6 +1,7 @@
-model builty {
+model invoices {
     id                  String                @id @default(uuid())
-    user_id             String
+    to_customer_id      String
+    from_customer_id    String
     payment_mode_id     String
     invoice_id          String
     invoice_date        DateTime              @default(now())
@@ -21,6 +22,7 @@ model builty {
     modified_at         DateTime              @updatedAt
     modified_by         String?
     payment_collections payment_collections[]
-    user                customers?            @relation(fields: [user_id], references: [id])
+    to_customer         customers?            @relation("to_customer", fields: [to_customer_id], references: [id])
+    from_customer       customers?            @relation("from_customer", fields: [from_customer_id], references: [id])
     payment_mode        payment_modes?        @relation(fields: [payment_mode_id], references: [id])
 }

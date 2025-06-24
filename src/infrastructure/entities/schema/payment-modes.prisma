@@ -11,5 +11,5 @@ model payment_modes {
     modified_by         String?
     firm                firms?                @relation(fields: [firm_id], references: [id])
     payment_collections payment_collections[]
-    builty              builty[]
+    invoices            invoices[]
 }

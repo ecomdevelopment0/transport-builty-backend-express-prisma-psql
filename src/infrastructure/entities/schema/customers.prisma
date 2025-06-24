@@ -1,7 +1,7 @@
 model customers {
-    id                     String   @id @default(uuid())
+    id                     String     @id @default(uuid())
     firm_id                String
-    firm                   firms    @relation(fields: [firm_id], references: [id])
+    firm                   firms      @relation(fields: [firm_id], references: [id])
     full_name              String?
     mobile                 String?
     type                   String?
@@ -12,19 +12,20 @@ model customers {
     gst_number             String?
     pan_card_number        String?
     address                String?
-    media                  String[] @default([])
-    documents              String[] @default([])
+    media                  String[]   @default([])
+    documents              String[]   @default([])
     city                   String?
     state                  String?
     country                String?
     pin_code               String?
     adhaar_number          String?
     driving_license_number String?
-    active_flag            Boolean  @default(true)
-    delete_flag            Boolean  @default(false)
-    modified_at            DateTime @updatedAt
-    created_at             DateTime @default(now())
+    active_flag            Boolean    @default(true)
+    delete_flag            Boolean    @default(false)
+    modified_at            DateTime   @updatedAt
+    created_at             DateTime   @default(now())
     created_by             String?
     modified_by            String?
-    builty                 builty[]
+    to_invoices            invoices[] @relation("to_customer")
+    from_invoices          invoices[] @relation("from_customer")
 }

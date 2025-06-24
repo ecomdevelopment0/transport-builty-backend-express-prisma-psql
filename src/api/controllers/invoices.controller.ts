@@ -2,13 +2,13 @@ import { controller } from "inversify-express-utils";
 import { inject } from "inversify";
 import { Instances } from "../bindings/container-types";
 import { BaseController } from "../../base";
-import { BuiltyService } from "../../application/services/builty.service";
+import { InvoicesService } from "../../application/services/invoices.service";
 
-@controller("/builty")
-export class BuiltyController extends BaseController {
+@controller("/invoices")
+export class InvoicesController extends BaseController {
   constructor(
-    @inject(Instances.BuiltyService as any)
-    service: BuiltyService,
+    @inject(Instances.InvoicesService as any)
+    service: InvoicesService,
   ) {
     super(service);
   }
