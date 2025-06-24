@@ -8,7 +8,7 @@ let InstancesList: any[] = [
   "PaymentModes",
   "Prefixes",
   "Products",
-  "Rentals",
+  "Builty",
   "Owners",
   "Charges",
   "Subscriptions",

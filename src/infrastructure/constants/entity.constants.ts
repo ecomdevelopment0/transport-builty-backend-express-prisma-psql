@@ -7,7 +7,7 @@ export class EntityConstants {
   public static readonly PAYMENT_MODES = "payment_modes";
   public static readonly PREFIXES = "prefixes";
   public static readonly PRODUCTS = "products";
-  public static readonly RENTALS = "rentals";
+  public static readonly BUILTY = "builty";
   public static readonly OWNERS = "owners";
   public static readonly SUBSCRIPTIONS = "subscriptions";
   public static readonly SETTINGS = "settings";

@@ -1,4 +1,4 @@
-model rentals {
+model builty {
     id                  String                @id @default(uuid())
     user_id             String
     payment_mode_id     String
@@ -21,6 +21,6 @@ model rentals {
     modified_at         DateTime              @updatedAt
     modified_by         String?
     payment_collections payment_collections[]
-    user                customers?                @relation(fields: [user_id], references: [id])
+    user                customers?            @relation(fields: [user_id], references: [id])
     payment_mode        payment_modes?        @relation(fields: [payment_mode_id], references: [id])
 }

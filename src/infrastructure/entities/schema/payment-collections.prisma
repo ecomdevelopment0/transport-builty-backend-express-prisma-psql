@@ -13,5 +13,5 @@ model payment_collections {
     modified_by     String?
     firm            firms?         @relation(fields: [firm_id], references: [id])
     payment_mode    payment_modes? @relation(fields: [payment_mode_id], references: [id])
-    rental          rentals?       @relation(fields: [rental_id], references: [id])
+    builty          builty?        @relation(fields: [rental_id], references: [id])
 }
