@@ -4699,22 +4699,8 @@ export namespace Prisma {
 
   export type AggregateCharges = {
     _count: ChargesCountAggregateOutputType | null
-    _avg: ChargesAvgAggregateOutputType | null
-    _sum: ChargesSumAggregateOutputType | null
     _min: ChargesMinAggregateOutputType | null
     _max: ChargesMaxAggregateOutputType | null
-  }
-
-  export type ChargesAvgAggregateOutputType = {
-    taxable_amount: number | null
-    gst_percentage: number | null
-    amount: number | null
-  }
-
-  export type ChargesSumAggregateOutputType = {
-    taxable_amount: number | null
-    gst_percentage: number | null
-    amount: number | null
   }
 
   export type ChargesMinAggregateOutputType = {
@@ -4722,9 +4708,6 @@ export namespace Prisma {
     name: string | null
     firm_id: string | null
     description: string | null
-    taxable_amount: number | null
-    gst_percentage: number | null
-    amount: number | null
     active_flag: boolean | null
     delete_flag: boolean | null
     modified_at: Date | null
@@ -4738,9 +4721,6 @@ export namespace Prisma {
     name: string | null
     firm_id: string | null
     description: string | null
-    taxable_amount: number | null
-    gst_percentage: number | null
-    amount: number | null
     active_flag: boolean | null
     delete_flag: boolean | null
     modified_at: Date | null
@@ -4754,9 +4734,6 @@ export namespace Prisma {
     name: number
     firm_id: number
     description: number
-    taxable_amount: number
-    gst_percentage: number
-    amount: number
     active_flag: number
     delete_flag: number
     modified_at: number
@@ -4767,26 +4744,11 @@ export namespace Prisma {
   }
 
 
-  export type ChargesAvgAggregateInputType = {
-    taxable_amount?: true
-    gst_percentage?: true
-    amount?: true
-  }
-
-  export type ChargesSumAggregateInputType = {
-    taxable_amount?: true
-    gst_percentage?: true
-    amount?: true
-  }
-
   export type ChargesMinAggregateInputType = {
     id?: true
     name?: true
     firm_id?: true
     description?: true
-    taxable_amount?: true
-    gst_percentage?: true
-    amount?: true
     active_flag?: true
     delete_flag?: true
     modified_at?: true
@@ -4800,9 +4762,6 @@ export namespace Prisma {
     name?: true
     firm_id?: true
     description?: true
-    taxable_amount?: true
-    gst_percentage?: true
-    amount?: true
     active_flag?: true
     delete_flag?: true
     modified_at?: true
@@ -4816,9 +4775,6 @@ export namespace Prisma {
     name?: true
     firm_id?: true
     description?: true
-    taxable_amount?: true
-    gst_percentage?: true
-    amount?: true
     active_flag?: true
     delete_flag?: true
     modified_at?: true
@@ -4866,18 +4822,6 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Select which fields to average
-    **/
-    _avg?: ChargesAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: ChargesSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
      * Select which fields to find the minimum value
     **/
     _min?: ChargesMinAggregateInputType
@@ -4908,8 +4852,6 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: ChargesCountAggregateInputType | true
-    _avg?: ChargesAvgAggregateInputType
-    _sum?: ChargesSumAggregateInputType
     _min?: ChargesMinAggregateInputType
     _max?: ChargesMaxAggregateInputType
   }
@@ -4919,9 +4861,6 @@ export namespace Prisma {
     name: string
     firm_id: string
     description: string | null
-    taxable_amount: number
-    gst_percentage: number
-    amount: number
     active_flag: boolean
     delete_flag: boolean
     modified_at: Date
@@ -4929,8 +4868,6 @@ export namespace Prisma {
     created_by: string | null
     modified_by: string | null
     _count: ChargesCountAggregateOutputType | null
-    _avg: ChargesAvgAggregateOutputType | null
-    _sum: ChargesSumAggregateOutputType | null
     _min: ChargesMinAggregateOutputType | null
     _max: ChargesMaxAggregateOutputType | null
   }
@@ -4954,9 +4891,6 @@ export namespace Prisma {
     name?: boolean
     firm_id?: boolean
     description?: boolean
-    taxable_amount?: boolean
-    gst_percentage?: boolean
-    amount?: boolean
     active_flag?: boolean
     delete_flag?: boolean
     modified_at?: boolean
@@ -4971,9 +4905,6 @@ export namespace Prisma {
     name?: boolean
     firm_id?: boolean
     description?: boolean
-    taxable_amount?: boolean
-    gst_percentage?: boolean
-    amount?: boolean
     active_flag?: boolean
     delete_flag?: boolean
     modified_at?: boolean
@@ -4988,9 +4919,6 @@ export namespace Prisma {
     name?: boolean
     firm_id?: boolean
     description?: boolean
-    taxable_amount?: boolean
-    gst_percentage?: boolean
-    amount?: boolean
     active_flag?: boolean
     delete_flag?: boolean
     modified_at?: boolean
@@ -5005,9 +4933,6 @@ export namespace Prisma {
     name?: boolean
     firm_id?: boolean
     description?: boolean
-    taxable_amount?: boolean
-    gst_percentage?: boolean
-    amount?: boolean
     active_flag?: boolean
     delete_flag?: boolean
     modified_at?: boolean
@@ -5016,7 +4941,7 @@ export namespace Prisma {
     modified_by?: boolean
   }
 
-  export type chargesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "firm_id" | "description" | "taxable_amount" | "gst_percentage" | "amount" | "active_flag" | "delete_flag" | "modified_at" | "created_at" | "created_by" | "modified_by", ExtArgs["result"]["charges"]>
+  export type chargesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "firm_id" | "description" | "active_flag" | "delete_flag" | "modified_at" | "created_at" | "created_by" | "modified_by", ExtArgs["result"]["charges"]>
   export type chargesInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     firm?: boolean | firmsDefaultArgs<ExtArgs>
   }
@@ -5037,9 +4962,6 @@ export namespace Prisma {
       name: string
       firm_id: string
       description: string | null
-      taxable_amount: number
-      gst_percentage: number
-      amount: number
       active_flag: boolean
       delete_flag: boolean
       modified_at: Date
@@ -5474,9 +5396,6 @@ export namespace Prisma {
     readonly name: FieldRef<"charges", 'String'>
     readonly firm_id: FieldRef<"charges", 'String'>
     readonly description: FieldRef<"charges", 'String'>
-    readonly taxable_amount: FieldRef<"charges", 'Float'>
-    readonly gst_percentage: FieldRef<"charges", 'Float'>
-    readonly amount: FieldRef<"charges", 'Float'>
     readonly active_flag: FieldRef<"charges", 'Boolean'>
     readonly delete_flag: FieldRef<"charges", 'Boolean'>
     readonly modified_at: FieldRef<"charges", 'DateTime'>
@@ -22406,9 +22325,6 @@ export namespace Prisma {
     name: 'name',
     firm_id: 'firm_id',
     description: 'description',
-    taxable_amount: 'taxable_amount',
-    gst_percentage: 'gst_percentage',
-    amount: 'amount',
     active_flag: 'active_flag',
     delete_flag: 'delete_flag',
     modified_at: 'modified_at',
@@ -22821,20 +22737,6 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Float'
-   */
-  export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
-    
-
-
-  /**
-   * Reference to a field of type 'Float[]'
-   */
-  export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
-    
-
-
-  /**
    * Reference to a field of type 'InvoiceStatus'
    */
   export type EnumInvoiceStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'InvoiceStatus'>
@@ -22866,6 +22768,20 @@ export namespace Prisma {
    * Reference to a field of type 'Json[]'
    */
   export type ListJsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Float'
+   */
+  export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
+    
+
+
+  /**
+   * Reference to a field of type 'Float[]'
+   */
+  export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
     
 
 
@@ -23107,9 +23023,6 @@ export namespace Prisma {
     name?: StringFilter<"charges"> | string
     firm_id?: StringFilter<"charges"> | string
     description?: StringNullableFilter<"charges"> | string | null
-    taxable_amount?: FloatFilter<"charges"> | number
-    gst_percentage?: FloatFilter<"charges"> | number
-    amount?: FloatFilter<"charges"> | number
     active_flag?: BoolFilter<"charges"> | boolean
     delete_flag?: BoolFilter<"charges"> | boolean
     modified_at?: DateTimeFilter<"charges"> | Date | string
@@ -23124,9 +23037,6 @@ export namespace Prisma {
     name?: SortOrder
     firm_id?: SortOrder
     description?: SortOrderInput | SortOrder
-    taxable_amount?: SortOrder
-    gst_percentage?: SortOrder
-    amount?: SortOrder
     active_flag?: SortOrder
     delete_flag?: SortOrder
     modified_at?: SortOrder
@@ -23144,9 +23054,6 @@ export namespace Prisma {
     name?: StringFilter<"charges"> | string
     firm_id?: StringFilter<"charges"> | string
     description?: StringNullableFilter<"charges"> | string | null
-    taxable_amount?: FloatFilter<"charges"> | number
-    gst_percentage?: FloatFilter<"charges"> | number
-    amount?: FloatFilter<"charges"> | number
     active_flag?: BoolFilter<"charges"> | boolean
     delete_flag?: BoolFilter<"charges"> | boolean
     modified_at?: DateTimeFilter<"charges"> | Date | string
@@ -23161,9 +23068,6 @@ export namespace Prisma {
     name?: SortOrder
     firm_id?: SortOrder
     description?: SortOrderInput | SortOrder
-    taxable_amount?: SortOrder
-    gst_percentage?: SortOrder
-    amount?: SortOrder
     active_flag?: SortOrder
     delete_flag?: SortOrder
     modified_at?: SortOrder
@@ -23171,10 +23075,8 @@ export namespace Prisma {
     created_by?: SortOrderInput | SortOrder
     modified_by?: SortOrderInput | SortOrder
     _count?: chargesCountOrderByAggregateInput
-    _avg?: chargesAvgOrderByAggregateInput
     _max?: chargesMaxOrderByAggregateInput
     _min?: chargesMinOrderByAggregateInput
-    _sum?: chargesSumOrderByAggregateInput
   }
 
   export type chargesScalarWhereWithAggregatesInput = {
@@ -23185,9 +23087,6 @@ export namespace Prisma {
     name?: StringWithAggregatesFilter<"charges"> | string
     firm_id?: StringWithAggregatesFilter<"charges"> | string
     description?: StringNullableWithAggregatesFilter<"charges"> | string | null
-    taxable_amount?: FloatWithAggregatesFilter<"charges"> | number
-    gst_percentage?: FloatWithAggregatesFilter<"charges"> | number
-    amount?: FloatWithAggregatesFilter<"charges"> | number
     active_flag?: BoolWithAggregatesFilter<"charges"> | boolean
     delete_flag?: BoolWithAggregatesFilter<"charges"> | boolean
     modified_at?: DateTimeWithAggregatesFilter<"charges"> | Date | string
@@ -25085,9 +24984,6 @@ export namespace Prisma {
     id?: string
     name: string
     description?: string | null
-    taxable_amount?: number
-    gst_percentage?: number
-    amount?: number
     active_flag?: boolean
     delete_flag?: boolean
     modified_at?: Date | string
@@ -25102,9 +24998,6 @@ export namespace Prisma {
     name: string
     firm_id: string
     description?: string | null
-    taxable_amount?: number
-    gst_percentage?: number
-    amount?: number
     active_flag?: boolean
     delete_flag?: boolean
     modified_at?: Date | string
@@ -25117,9 +25010,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    taxable_amount?: FloatFieldUpdateOperationsInput | number
-    gst_percentage?: FloatFieldUpdateOperationsInput | number
-    amount?: FloatFieldUpdateOperationsInput | number
     active_flag?: BoolFieldUpdateOperationsInput | boolean
     delete_flag?: BoolFieldUpdateOperationsInput | boolean
     modified_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -25134,9 +25024,6 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     firm_id?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    taxable_amount?: FloatFieldUpdateOperationsInput | number
-    gst_percentage?: FloatFieldUpdateOperationsInput | number
-    amount?: FloatFieldUpdateOperationsInput | number
     active_flag?: BoolFieldUpdateOperationsInput | boolean
     delete_flag?: BoolFieldUpdateOperationsInput | boolean
     modified_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -25150,9 +25037,6 @@ export namespace Prisma {
     name: string
     firm_id: string
     description?: string | null
-    taxable_amount?: number
-    gst_percentage?: number
-    amount?: number
     active_flag?: boolean
     delete_flag?: boolean
     modified_at?: Date | string
@@ -25165,9 +25049,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    taxable_amount?: FloatFieldUpdateOperationsInput | number
-    gst_percentage?: FloatFieldUpdateOperationsInput | number
-    amount?: FloatFieldUpdateOperationsInput | number
     active_flag?: BoolFieldUpdateOperationsInput | boolean
     delete_flag?: BoolFieldUpdateOperationsInput | boolean
     modified_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -25181,9 +25062,6 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     firm_id?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    taxable_amount?: FloatFieldUpdateOperationsInput | number
-    gst_percentage?: FloatFieldUpdateOperationsInput | number
-    amount?: FloatFieldUpdateOperationsInput | number
     active_flag?: BoolFieldUpdateOperationsInput | boolean
     delete_flag?: BoolFieldUpdateOperationsInput | boolean
     modified_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -27409,17 +27287,6 @@ export namespace Prisma {
     modified_by?: SortOrder
   }
 
-  export type FloatFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatFilter<$PrismaModel> | number
-  }
-
   export type FirmsScalarRelationFilter = {
     is?: firmsWhereInput
     isNot?: firmsWhereInput
@@ -27430,9 +27297,6 @@ export namespace Prisma {
     name?: SortOrder
     firm_id?: SortOrder
     description?: SortOrder
-    taxable_amount?: SortOrder
-    gst_percentage?: SortOrder
-    amount?: SortOrder
     active_flag?: SortOrder
     delete_flag?: SortOrder
     modified_at?: SortOrder
@@ -27441,20 +27305,11 @@ export namespace Prisma {
     modified_by?: SortOrder
   }
 
-  export type chargesAvgOrderByAggregateInput = {
-    taxable_amount?: SortOrder
-    gst_percentage?: SortOrder
-    amount?: SortOrder
-  }
-
   export type chargesMaxOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
     firm_id?: SortOrder
     description?: SortOrder
-    taxable_amount?: SortOrder
-    gst_percentage?: SortOrder
-    amount?: SortOrder
     active_flag?: SortOrder
     delete_flag?: SortOrder
     modified_at?: SortOrder
@@ -27468,37 +27323,12 @@ export namespace Prisma {
     name?: SortOrder
     firm_id?: SortOrder
     description?: SortOrder
-    taxable_amount?: SortOrder
-    gst_percentage?: SortOrder
-    amount?: SortOrder
     active_flag?: SortOrder
     delete_flag?: SortOrder
     modified_at?: SortOrder
     created_at?: SortOrder
     created_by?: SortOrder
     modified_by?: SortOrder
-  }
-
-  export type chargesSumOrderByAggregateInput = {
-    taxable_amount?: SortOrder
-    gst_percentage?: SortOrder
-    amount?: SortOrder
-  }
-
-  export type FloatWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedFloatFilter<$PrismaModel>
-    _min?: NestedFloatFilter<$PrismaModel>
-    _max?: NestedFloatFilter<$PrismaModel>
   }
 
   export type InvoicesListRelationFilter = {
@@ -27784,6 +27614,17 @@ export namespace Prisma {
     isEmpty?: boolean
   }
 
+  export type FloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
   export type CustomersNullableScalarRelationFilter = {
     is?: customersWhereInput | null
     isNot?: customersWhereInput | null
@@ -27921,6 +27762,22 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedJsonNullableFilter<$PrismaModel>
     _max?: NestedJsonNullableFilter<$PrismaModel>
+  }
+
+  export type FloatWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedFloatFilter<$PrismaModel>
+    _min?: NestedFloatFilter<$PrismaModel>
+    _max?: NestedFloatFilter<$PrismaModel>
   }
 
   export type FirmsNullableScalarRelationFilter = {
@@ -28690,14 +28547,6 @@ export namespace Prisma {
     connect?: firmsWhereUniqueInput
   }
 
-  export type FloatFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
-  }
-
   export type firmsUpdateOneRequiredWithoutChargesNestedInput = {
     create?: XOR<firmsCreateWithoutChargesInput, firmsUncheckedCreateWithoutChargesInput>
     connectOrCreate?: firmsCreateOrConnectWithoutChargesInput
@@ -29174,6 +29023,14 @@ export namespace Prisma {
     push?: InputJsonValue | InputJsonValue[]
   }
 
+  export type FloatFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
   export type invoicesUpdateproductsInput = {
     set?: InputJsonValue[]
     push?: InputJsonValue | InputJsonValue[]
@@ -29607,6 +29464,13 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type NestedEnumInvoiceStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.InvoiceStatus | EnumInvoiceStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.InvoiceStatus[] | ListEnumInvoiceStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.InvoiceStatus[] | ListEnumInvoiceStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumInvoiceStatusFilter<$PrismaModel> | $Enums.InvoiceStatus
+  }
+
   export type NestedFloatFilter<$PrismaModel = never> = {
     equals?: number | FloatFieldRefInput<$PrismaModel>
     in?: number[] | ListFloatFieldRefInput<$PrismaModel>
@@ -29616,29 +29480,6 @@ export namespace Prisma {
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatFilter<$PrismaModel> | number
-  }
-
-  export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedFloatFilter<$PrismaModel>
-    _min?: NestedFloatFilter<$PrismaModel>
-    _max?: NestedFloatFilter<$PrismaModel>
-  }
-
-  export type NestedEnumInvoiceStatusFilter<$PrismaModel = never> = {
-    equals?: $Enums.InvoiceStatus | EnumInvoiceStatusFieldRefInput<$PrismaModel>
-    in?: $Enums.InvoiceStatus[] | ListEnumInvoiceStatusFieldRefInput<$PrismaModel>
-    notIn?: $Enums.InvoiceStatus[] | ListEnumInvoiceStatusFieldRefInput<$PrismaModel>
-    not?: NestedEnumInvoiceStatusFilter<$PrismaModel> | $Enums.InvoiceStatus
   }
 
   export type NestedEnumInvoiceStatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -29672,6 +29513,22 @@ export namespace Prisma {
     gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
     gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
+
+  export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedFloatFilter<$PrismaModel>
+    _min?: NestedFloatFilter<$PrismaModel>
+    _max?: NestedFloatFilter<$PrismaModel>
   }
 
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
@@ -30522,9 +30379,6 @@ export namespace Prisma {
     id?: string
     name: string
     description?: string | null
-    taxable_amount?: number
-    gst_percentage?: number
-    amount?: number
     active_flag?: boolean
     delete_flag?: boolean
     modified_at?: Date | string
@@ -30537,9 +30391,6 @@ export namespace Prisma {
     id?: string
     name: string
     description?: string | null
-    taxable_amount?: number
-    gst_percentage?: number
-    amount?: number
     active_flag?: boolean
     delete_flag?: boolean
     modified_at?: Date | string
@@ -30821,9 +30672,6 @@ export namespace Prisma {
     name?: StringFilter<"charges"> | string
     firm_id?: StringFilter<"charges"> | string
     description?: StringNullableFilter<"charges"> | string | null
-    taxable_amount?: FloatFilter<"charges"> | number
-    gst_percentage?: FloatFilter<"charges"> | number
-    amount?: FloatFilter<"charges"> | number
     active_flag?: BoolFilter<"charges"> | boolean
     delete_flag?: BoolFilter<"charges"> | boolean
     modified_at?: DateTimeFilter<"charges"> | Date | string
@@ -32615,9 +32463,6 @@ export namespace Prisma {
     id?: string
     name: string
     description?: string | null
-    taxable_amount?: number
-    gst_percentage?: number
-    amount?: number
     active_flag?: boolean
     delete_flag?: boolean
     modified_at?: Date | string
@@ -32995,9 +32840,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    taxable_amount?: FloatFieldUpdateOperationsInput | number
-    gst_percentage?: FloatFieldUpdateOperationsInput | number
-    amount?: FloatFieldUpdateOperationsInput | number
     active_flag?: BoolFieldUpdateOperationsInput | boolean
     delete_flag?: BoolFieldUpdateOperationsInput | boolean
     modified_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -33010,9 +32852,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    taxable_amount?: FloatFieldUpdateOperationsInput | number
-    gst_percentage?: FloatFieldUpdateOperationsInput | number
-    amount?: FloatFieldUpdateOperationsInput | number
     active_flag?: BoolFieldUpdateOperationsInput | boolean
     delete_flag?: BoolFieldUpdateOperationsInput | boolean
     modified_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -33025,9 +32864,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    taxable_amount?: FloatFieldUpdateOperationsInput | number
-    gst_percentage?: FloatFieldUpdateOperationsInput | number
-    amount?: FloatFieldUpdateOperationsInput | number
     active_flag?: BoolFieldUpdateOperationsInput | boolean
     delete_flag?: BoolFieldUpdateOperationsInput | boolean
     modified_at?: DateTimeFieldUpdateOperationsInput | Date | string
